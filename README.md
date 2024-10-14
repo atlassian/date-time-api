@@ -29,11 +29,11 @@
 
 ## Contributions
 
-Contributions to [Project name] are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details. 
+Contributions to Date Time API are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details. 
 
 ## License
 
-Copyright (c) [YYYY] Atlassian US., Inc.
+Copyright (c) 2024 Atlassian US., Inc.
 Apache 2.0 licensed, see [LICENSE](LICENSE) file.
 
 <br/> 

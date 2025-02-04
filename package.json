@@ -1,0 +1,28 @@
+{
+  "name": "date-time-api",
+  "version": "0.0.1",
+  "description": "Atlassian Frontend Date Time API ",
+  "scripts": {
+    "test": "jest "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlassian/date-time-api.git"
+  },
+  "keywords": [
+    "atlassian",
+    "date",
+    "time"
+  ],
+  "author": "Zac Xu",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/atlassian/date-time-api/issues"
+  },
+  "homepage": "https://github.com/atlassian/date-time-api#readme",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5"
+  }
+}

@@ -1,4 +1,4 @@
-import * as dateTime from './dateTime';
+import * as dateTime from './index';
 
 const dates = [
     {

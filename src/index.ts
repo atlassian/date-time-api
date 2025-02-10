@@ -68,38 +68,41 @@ export function validate(dateString: string, locale = 'sv-SE') {
     return parse(`${year}-${month}-${day}`) || false;
 }
 
-export function formatPlainDate(date = new Date()) {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
+export function formatPlainDate(date = new Date(), timeZone = getTimeZone()) {
+    const timeZonedDate = new Date(date.toLocaleString(undefined, { timeZone }));
+    const year = timeZonedDate.getFullYear();
+    const month = (timeZonedDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = timeZonedDate.getDate().toString().padStart(2, '0');
 
     return `${year}-${month}-${day}`;
 }
 
-export function formatPlainTime(date = new Date()) {
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const seconds = date.getSeconds().toString().padStart(2, '0');
+export function formatPlainTime(date = new Date(), timeZone = getTimeZone()) {
+    const timeZonedDate = new Date(date.toLocaleString(undefined, { timeZone }));
+    const hours = timeZonedDate.getHours().toString().padStart(2, '0');
+    const minutes = timeZonedDate.getMinutes().toString().padStart(2, '0');
+    const seconds = timeZonedDate.getSeconds().toString().padStart(2, '0');
 
     return `${hours}:${minutes}:${seconds}`;
 }
 
-export function formatPlainDateTime(date = new Date()) {
-    const formattedDate = formatPlainDate(date);
-    const formattedTime = formatPlainTime(date);
+export function formatPlainDateTime(date = new Date(), timeZone = getTimeZone()) {
+    const formattedDate = formatPlainDate(date, timeZone);
+    const formattedTime = formatPlainTime(date, timeZone);
 
     return `${formattedDate}T${formattedTime}`;
 }
 
-export function formatNumericDate(date = new Date(), locale = getLocale()) {
+export function formatNumericDate(date = new Date(), locale = getLocale(), timeZone = getTimeZone()) {
     return new Intl.DateTimeFormat(locale, {
         year: 'numeric',
         month: 'numeric',
         day: 'numeric',
+        timeZone,
     }).format(date);
 }
 
-function getDateOptionByLocal(locale: string) {
+function getDateOptionByLocal(locale: string, timeZone: string) {
     const twoDigitLocales = ['de-DE', 'ja-JP'];
     const numericLocales = ['fi-FI', 'ko-KR'];
     // Todo: Chrome_Headless_104_0_518_79_(Linux_x86_64) generates an incorrect format
@@ -118,41 +121,45 @@ function getDateOptionByLocal(locale: string) {
         year,
         month,
         day,
+        timeZone,
     };
 }
 
-export function formatDate(date = new Date(), locale = getLocale()) {
-    const options = getDateOptionByLocal(locale);
+export function formatDate(date = new Date(), locale = getLocale(), timeZone = getTimeZone()) {
+    const options = getDateOptionByLocal(locale, timeZone);
     return new Intl.DateTimeFormat(locale, options).format(date);
 }
 
-export function formatTime(date = new Date(), locale = getLocale()) {
+export function formatTime(date = new Date(), locale = getLocale(), timeZone = getTimeZone()) {
     return new Intl.DateTimeFormat(locale, {
         hour: 'numeric',
         minute: 'numeric',
         second: 'numeric',
+        timeZone,
     }).format(date);
 }
 
-export function formatDateTime(date = new Date(), locale = getLocale()) {
-    const options = getDateOptionByLocal(locale);
+export function formatDateTime(date = new Date(), locale = getLocale(), timeZone = getTimeZone()) {
+    const options = getDateOptionByLocal(locale, timeZone);
     return new Intl.DateTimeFormat(locale, {
         ...options,
         hour: 'numeric',
         minute: 'numeric',
         second: 'numeric',
+        timeZone,
     }).format(date);
 }
 
-export function formatDateTimeByOptions(options: Intl.DateTimeFormatOptions, date = new Date(), locale = getLocale()) {
+export function formatDateTimeByOptions(options: Intl.DateTimeFormatOptions, date = new Date(), locale = getLocale(), timeZone = getTimeZone()) {
     if (!options) {
         throw new Error('Please use formatDateTime instead');
     }
 
     return new Intl.DateTimeFormat(locale, {
-        ...getDateOptionByLocal(locale),
+        ...getDateOptionByLocal(locale, timeZone),
         hour: 'numeric',
         minute: 'numeric',
+        timeZone,
         ...options,
     }).format(date);
 }

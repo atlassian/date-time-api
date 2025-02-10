@@ -1,41 +1,98 @@
 # Date Time API
 
-[![Atlassian license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
+[![Atlassian license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE) [![npm version](https://img.shields.io/npm/v/date-time-api.svg?style=flat-square)](https://www.npmjs.com/package/date-time-api) [![Build Status](https://img.shields.io/travis/atlassian/date-time-api/master?style=flat-square)](https://travis-ci.org/atlassian/date-time-api) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
-> Provide an introduction/overview of your project, and articulate the problem it solves for the broader engineering community. Potential consumers should understand **what** the project is, and **why** it exists.
+## Introduction
 
-> Other recommended badges are a [version](https://shields.io/category/version) badge (e.g. `npm`) and a [build](https://shields.io/category/build) badge (e.g., `circleci` or `travis`). Order should be `license - version - build - PRs`. Please use the `flat-sqare` style.
-> 
-> See e.g.
-> 
-> [![npm version](https://img.shields.io/npm/v/react-beautiful-dnd.svg?style=flat-square)](https://www.npmjs.com/package/react-beautiful-dnd) [![npm version](https://img.shields.io/npm/v/@atlaskit/button.svg?style=flat-square)](https://www.npmjs.com/package/@atlaskit/button) [![Build Status](https://img.shields.io/travis/stricter/stricter/master?style=flat-square)](https://travis-ci.org/stricter/stricter)
-
+The Date Time API is a comprehensive library designed to simplify date and time manipulation in JavaScript. It provides a wide range of utilities for parsing, validating and formatting dates and times, making it easier for developers to handle date-time operations in their applications.
 
 ## Usage
 
-> Provide a simple and concise (code) example of your project. Consumers should understand **how** your project solves their problem.
+```javascript
+import * as dateTime from '@atlassian/date-time';
+
+// Parse a date string
+const date = dateTime.parse('2024-01-01');
+console.log(date); // Outputs: "Mon Jan 01 2024 00:00:00 GMT+0000 (Coordinated Universal Time)"
+
+// Get date pattern
+const pattern = dateTime.getDatePattern('en-US');
+console.log(pattern); // Outputs: "mm/dd/yyyy"
+
+// Validate a date string
+const isValid = dateTime.validate('2024-01-01');
+console.log(isValid); // Outputs: true
+
+// Format a plain date
+const plainDate = dateTime.formatPlainDate(new Date());
+console.log(plainDate); // Outputs: "2024-01-01"
+
+// Format a plain time
+const plainTime = dateTime.formatPlainTime(new Date());
+console.log(plainTime); // Outputs: "12:00:00"
+
+// Format a plain date-time
+const plainDateTime = dateTime.formatPlainDateTime(new Date());
+console.log(plainDateTime); // Outputs: "2024-01-01T12:00:00"
+
+// Format a numeric date
+const numericDate = dateTime.formatNumericDate(new Date(), 'en-US');
+console.log(numericDate); // Outputs: "1/1/2024"
+
+// Format a date
+const formattedDate = dateTime.formatDate(new Date(), 'en-US');
+console.log(formattedDate); // Outputs: "Jan 1, 2024"
+
+// Format a time
+const formattedTime = dateTime.formatTime(new Date(), 'en-US');
+console.log(formattedTime); // Outputs: "12:00:00 PM"
+
+// Format a date-time
+const formattedDateTime = dateTime.formatDateTime(new Date(), 'en-US');
+console.log(formattedDateTime); // Outputs: "Jan 1, 2024, 12:00:00 PM"
+
+// Format a date-time with options
+const formattedDateTimeWithOptions = dateTime.formatDateTimeByOptions({ second: undefined }, new Date(), 'en-US');
+console.log(formattedDateTimeWithOptions); // Outputs: "Jan 1, 2024, 12:00 PM"
+
+// Format a duration
+const duration = dateTime.formatDuration(new Date(2024, 0, 1), new Date(2024, 0, 2), 'en-US');
+console.log(duration); // Outputs: "1 day 1 hour 1 minute 1 second"
+```
 
 ## Installation
 
-> Provide instructions on how to install and configure the project.
+To install the Date Time API, use npm:
 
-## Documentation
+```bash
+npm install @atlassian/date-time
+```
 
-> If your project is small and simple enough, documentation can be added here. For larger projects, provide a link to where the documentation lives.
+## Build
+
+To build the Date Time API, use npm:
+
+```bash
+npm run build
+```
 
 ## Tests
 
-> Describe and show how to run the tests with code examples.
+To run the tests, use the following command:
+
+```bash
+npm test
+```
 
 ## Contributions
 
-Contributions to Date Time API are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details. 
+Contributions to Date Time API are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## License
 
 Copyright (c) 2024 Atlassian US., Inc.
 Apache 2.0 licensed, see [LICENSE](LICENSE) file.
 
-<br/> 
+<br/>
 
 [![With ❤️ from Atlassian](https://raw.githubusercontent.com/atlassian-internal/oss-assets/master/banner-cheers.png)](https://www.atlassian.com)

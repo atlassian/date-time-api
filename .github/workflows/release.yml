@@ -1,4 +1,4 @@
-name: Release
+name: release
 
 on:
   push:
@@ -7,11 +7,10 @@ on:
 
 jobs:
   release:
-    name: Create release
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -19,19 +18,19 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
+      - name: install dependencies
         run: npm ci
 
-      - name: Build project
+      - name: build project
         run: npm run build
 
-      - name: Create GitHub Release
+      - name: create GitHub release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: release ${{ github.ref }}
           draft: false
           prerelease: false

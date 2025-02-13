@@ -69,10 +69,12 @@ export function validate(dateString: string, locale = 'sv-SE') {
 }
 
 export function formatPlainDate(date = new Date(), timeZone = getTimeZone()) {
-    const timeZonedDate = new Date(date.toLocaleString(undefined, { timeZone }));
-    const year = timeZonedDate.getFullYear();
-    const month = (timeZonedDate.getMonth() + 1).toString().padStart(2, '0');
-    const day = timeZonedDate.getDate().toString().padStart(2, '0');
+    const [month, day, year] = new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        timeZone,
+    }).format(date).split('/');
 
     return `${year}-${month}-${day}`;
 }

@@ -242,7 +242,7 @@ describe('date-time', () => {
     });
 
     test('should format plain date', () => {
-        const date = new Date('2025-09-01T15:05:01');
+        const date = new Date('2025-09-01');
         expect(dateTime.formatPlainDate(date)).toBe('2025-09-01');
     });
 

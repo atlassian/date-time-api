@@ -1,6 +1,6 @@
 # Date Time API
 
-[![Atlassian license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE) [![npm version](https://img.shields.io/npm/v/@atlassian/date-time.svg?style=flat-square)](https://www.npmjs.com/package/@atlassian/date-time) [![Build Status](https://img.shields.io/travis/atlassian/date-time-api/master?style=flat-square)](https://travis-ci.org/atlassian/date-time-api) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
+[![Atlassian license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE) [![npm version](https://img.shields.io/npm/v/@atlassian/date-time.svg?style=flat-square)](https://www.npmjs.com/package/@atlassian/date-time) [![workflow status](https://github.com/atlassian/date-time-api/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/atlassian/date-time-api/actions/workflows/release.yml?query=event%3Apush) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
 ## Introduction
 

@@ -11,10 +11,11 @@
     "require": "./dist/cjs/index.js"
   },
   "scripts": {
-    "build": "npm run build:types && npm run build:esm && npm run build:cjs",
+    "build": "npm run build:types && npm run build:amd && npm run build:cjs && npm run build:esm",
     "build:types": "tsc --project tsconfig.types.json",
-    "build:esm": "tsc --project tsconfig.esm.json",
+    "build:amd": "tsc --project tsconfig.amd.json",
     "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
     "test": "jest"
   },
   "repository": {

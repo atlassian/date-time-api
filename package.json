@@ -2,7 +2,6 @@
   "name": "@atlassian/date-time",
   "version": "0.0.8",
   "description": "Atlassian Frontend Date Time API ",
-  "type": "module",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",

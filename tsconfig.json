@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
+    "outDir": "dist/types",
+    "skipLibCheck": true,
+    "strict": true,
     "target": "ESNext",
-    "moduleResolution": "node",
-    "outDir": "dist/types"
   },
   "include": ["src"],
   "exclude": ["**/*.test.ts", "**/__tests__"]

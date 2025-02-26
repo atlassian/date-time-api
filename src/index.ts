@@ -37,6 +37,9 @@ export function getDatePattern(locale = getLocale()) {
 }
 
 export function validate(dateString: string, locale = 'sv-SE') {
+    if (typeof dateString !== 'string') {
+        return false;
+    }
     const dateNumbers = dateString.match(/\d+/g);
     if (!dateNumbers || dateNumbers.length < 3) {
         return false;

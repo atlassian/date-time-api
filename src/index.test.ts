@@ -174,6 +174,7 @@ describe('date-time', () => {
         expect(dateTime.parse('2004-13-03')).toBe(null);
         expect(dateTime.parse('2004-8-32')).toBe(null);
         expect(dateTime.parse('2001-2-29')).toBe(null);
+        expect(dateTime.parse('2014-04-08-dump')).toBe(null);
         expect(dateTime.parse('Zac Xu')).toBe(null);
 
         const date = new Date('2004-08-03');
@@ -189,6 +190,7 @@ describe('date-time', () => {
         expect(dateTime.validate('2000-2-29')).toBeTruthy();
         expect(dateTime.validate('2004-08-03')).toBeTruthy();
         expect(dateTime.validate(undefined as unknown as string)).toBe(false);
+        expect(dateTime.validate('2014-04-08-dump')).toStrictEqual(dateTime.parse('2014-04-08'));
         expect(dateTime.validate('2001-2-29')).toBe(false);
         expect(dateTime.validate('2004-13-03')).toBe(false);
         expect(dateTime.validate('2004-8-32')).toBe(false);

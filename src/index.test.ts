@@ -1,5 +1,4 @@
 import * as dateTime from './index';
-import { formatDurationByOptions } from './index';
 
 const dates = [
     {
@@ -425,7 +424,7 @@ describe('date-time', () => {
             const options: Intl.NumberFormatOptions = { 
                 unitDisplay: 'long',
             }
-          expect(formatDurationByOptions(options, baseDate, laterDate)).toBe('1 hour 2 minutes 3 seconds');
+          expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1 hour 2 minutes 3 seconds');
         });
       
         test('with compact notation', () => {
@@ -433,7 +432,7 @@ describe('date-time', () => {
             notation: 'compact',
             style: 'unit'
           };
-          expect(formatDurationByOptions(options, baseDate, laterDate)).toBe('1 hr 2 min 3 sec');
+          expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1 hr 2 min 3 sec');
         });
       
         test('with different unit style', () => {
@@ -441,18 +440,18 @@ describe('date-time', () => {
             style: 'unit',
             unitDisplay: 'narrow'
           };
-          expect(formatDurationByOptions(options, baseDate, laterDate)).toBe('1h 2m 3s');
+          expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1h 2m 3s');
         });
 
         test('with different locale', () => {
             const options: Intl.NumberFormatOptions = {
                 unitDisplay: 'narrow',
             }
-            expect(formatDurationByOptions(options, baseDate, laterDate, 'en-US')).toBe('1h 2m 3s');
-            expect(formatDurationByOptions(options, baseDate, laterDate, 'zh-CN')).toBe('1小时 2分钟 3秒');
-            expect(formatDurationByOptions(options, baseDate, laterDate, 'ja-JP')).toBe('1h 2m 3s');
-            expect(formatDurationByOptions(options, baseDate, laterDate, 'ko-KR')).toBe('1시간 2분 3초');
-            expect(formatDurationByOptions(options, baseDate, laterDate, 'de-DE')).toBe('1 Std. 2 Min. 3 Sek.');
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'en-US')).toBe('1h 2m 3s');
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'zh-CN')).toBe('1小时 2分钟 3秒');
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'ja-JP')).toBe('1h 2m 3s');
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'ko-KR')).toBe('1시간 2분 3초');
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'de-DE')).toBe('1 Std. 2 Min. 3 Sek.');
         });
       });
 });

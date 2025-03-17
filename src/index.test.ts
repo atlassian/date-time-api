@@ -415,4 +415,43 @@ describe('date-time', () => {
     test('should not format duration', () => {
         expect(dateTime.formatDuration(new Date(2000, 0, 2), new Date(2000, 0, 1), 'en-US')).toStrictEqual('');
     });
+
+    describe('formatDurationByOptions', () => {
+        const baseDate = new Date('2024-01-01T00:00:00Z');
+        const laterDate = new Date('2024-01-01T01:02:03Z');
+        
+        test('with default options', () => {
+            const options: Intl.NumberFormatOptions = { 
+                unitDisplay: 'long',
+            }
+          expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1 hour 2 minutes 3 seconds');
+        });
+      
+        test('with compact notation', () => {
+          const options: Intl.NumberFormatOptions = {
+            notation: 'compact',
+            style: 'unit'
+          };
+          expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1 hr 2 min 3 sec');
+        });
+      
+        test('with different unit style', () => {
+          const options: Intl.NumberFormatOptions = {
+            style: 'unit',
+            unitDisplay: 'narrow'
+          };
+          expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1h 2m 3s');
+        });
+
+        test('with different locale', () => {
+            const options: Intl.NumberFormatOptions = {
+                unitDisplay: 'narrow',
+            }
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'en-US')).toBe('1h 2m 3s');
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'zh-CN')).toBe('1小时 2分钟 3秒');
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'ja-JP')).toBe('1h 2m 3s');
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'ko-KR')).toBe('1시간 2분 3초');
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'de-DE')).toBe('1 Std. 2 Min. 3 Sek.');
+        });
+      });
 });

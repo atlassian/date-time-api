@@ -58,6 +58,15 @@ console.log(formattedDateTimeWithOptions); // Outputs: "Jan 1, 2024, 12:00 PM"
 // Format a duration
 const duration = dateTime.formatDuration(new Date(2024, 0, 1), new Date(2024, 0, 2), 'en-US');
 console.log(duration); // Outputs: "1 day 1 hour 1 minute 1 second"
+
+// Format a duration with custom options
+const durationWithOptions = dateTime.formatDurationByOptions(
+  { unitDisplay: 'narrow' }, 
+  new Date(2024, 0, 1), 
+  new Date(2024, 0, 2), 
+  'en-US'
+);
+console.log(durationWithOptions); // Outputs: "1d 1h 1m 1s"
 ```
 
 ## Installation

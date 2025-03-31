@@ -171,7 +171,6 @@ export function formatDateTimeByOptions(options: Intl.DateTimeFormatOptions, dat
 
 export function formatDuration(from: Date, to = new Date(), locale = getLocale()) {
     const options: Intl.DurationFormatOptions = {
-        unitDisplay: 'long',
         style: 'long'
     };
 

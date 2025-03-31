@@ -179,6 +179,15 @@ export function formatDurationByOptions(options: Intl.DurationFormatOptions, fro
         throw new Error('Please use formatDuration instead');
     }
 
+    // Legacy implementation
+    const getNumberFormat = (unit: string, number: number | bigint) => {
+        return new Intl.NumberFormat(locale, {
+            style: "unit",
+            unit,
+            unitDisplay: options.style === 'long' ? 'long' : 'narrow'
+        }).format(number);
+    }
+
     const diffInMs = to.getTime() - from.getTime();
     const diffInSeconds = Math.floor(diffInMs / 1000);
 

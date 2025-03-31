@@ -34,14 +34,14 @@ const dates = [
         pattern: 'dd/mm/yyyy',
         numericDate: '03/08/2004',
         cldrDate: '3 Aug 2004',
-        duration: '1 day 1 hour 1 minute 1 second',
+        duration: '1 day, 1 hour, 1 minute, 1 second',
     },
     {
         locale: 'en-US',
         pattern: 'mm/dd/yyyy',
         numericDate: '8/3/2004',
         cldrDate: 'Aug 3, 2004',
-        duration: '1 day 1 hour 1 minute 1 second',
+        duration: '1 day, 1 hour, 1 minute, 1 second',
     },
     {
         locale: 'es-ES',
@@ -373,16 +373,16 @@ describe('date-time', () => {
 
     test('should format duration', () => {
         expect(dateTime.formatDuration(new Date(2000, 0, 1), new Date(2000, 0, 2, 1, 1, 1, 1), 'en-US')).toStrictEqual(
-            '1 day 1 hour 1 minute 1 second'
+            '1 day, 1 hour, 1 minute, 1 second'
         );
         expect(dateTime.formatDuration(new Date(2000, 0, 1), new Date(2000, 0, 3, 2, 2, 2, 2), 'en-GB')).toStrictEqual(
-            '2 days 2 hours 2 minutes 2 seconds'
+            '2 days, 2 hours, 2 minutes, 2 seconds'
         );
         expect(dateTime.formatDuration(new Date(2000, 0, 1), new Date(2000, 0, 1, 2, 2, 2, 2), 'en-GB')).toStrictEqual(
-            '2 hours 2 minutes 2 seconds'
+            '2 hours, 2 minutes, 2 seconds'
         );
         expect(dateTime.formatDuration(new Date(2000, 0, 1), new Date(2000, 0, 1, 0, 2, 2, 2), 'en-GB')).toStrictEqual(
-            '2 minutes 2 seconds'
+            '2 minutes, 2 seconds'
         );
         expect(dateTime.formatDuration(new Date(2000, 0, 1), new Date(2000, 0, 1, 0, 0, 2, 2), 'en-GB')).toStrictEqual(
             '2 seconds'
@@ -421,24 +421,24 @@ describe('date-time', () => {
     describe('formatDurationByOptions', () => {
         const baseDate = new Date('2024-01-01T00:00:00Z');
         const laterDate = new Date('2024-01-01T01:02:03Z');
-        
+
         test('with default options', () => {
-            const options: Intl.NumberFormatOptions = { 
+            const options: any = {
                 unitDisplay: 'long',
             }
           expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1 hour 2 minutes 3 seconds');
         });
-      
+
         test('with compact notation', () => {
-          const options: Intl.NumberFormatOptions = {
+          const options: any = {
             notation: 'compact',
             style: 'unit'
           };
           expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1 hr 2 min 3 sec');
         });
-      
+
         test('with different unit style', () => {
-          const options: Intl.NumberFormatOptions = {
+          const options: any = {
             style: 'unit',
             unitDisplay: 'narrow'
           };
@@ -446,7 +446,7 @@ describe('date-time', () => {
         });
 
         test('with different locale', () => {
-            const options: Intl.NumberFormatOptions = {
+            const options: any = {
                 unitDisplay: 'narrow',
             }
             expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'en-US')).toBe('1h 2m 3s');

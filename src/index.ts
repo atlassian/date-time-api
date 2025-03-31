@@ -170,47 +170,37 @@ export function formatDateTimeByOptions(options: Intl.DateTimeFormatOptions, dat
 }
 
 export function formatDuration(from: Date, to = new Date(), locale = getLocale()) {
-    return formatDurationByOptions({ unitDisplay: 'long' }, from, to, locale);
+    const options: Intl.DurationFormatOptions = {
+        unitDisplay: 'long',
+        style: 'long'
+    };
+
+    return formatDurationByOptions(options, from, to, locale);
 }
 
-export function formatDurationByOptions(options: Intl.NumberFormatOptions, from: Date, to = new Date(), locale = getLocale()) {
+export function formatDurationByOptions(options: Intl.DurationFormatOptions, from: Date, to = new Date(), locale = getLocale()) {
     if (!options) {
         throw new Error('Please use formatDuration instead');
     }
 
-    const milliseconds = to.getTime() - from.getTime();
-    if (milliseconds < 0) {
+    const diffInSeconds = Math.floor((to.getTime() - from.getTime()) / 1000);
+    if (diffInSeconds <= 0) {
         return '';
     }
 
-    const dayInMs = 24 * 60 * 60 * 1000;
-    const hourInMs = 60 * 60 * 1000;
-    const minuteInMs = 60 * 1000;
-    const secondInMs = 1000;
+    const days = Math.floor(diffInSeconds / (24 * 60 * 60));
+    const hours = Math.floor((diffInSeconds % (24 * 60 * 60)) / (60 * 60));
+    const minutes = Math.floor((diffInSeconds % (60 * 60)) / 60);
+    const seconds = diffInSeconds % 60;
 
-    const days = Math.floor(milliseconds / dayInMs);
-    const hours = Math.floor((milliseconds - days * dayInMs) / hourInMs);
-    const minutes = Math.floor((milliseconds - days * dayInMs - hours * hourInMs) / minuteInMs);
-    const seconds = Math.floor((milliseconds - days * dayInMs - hours * hourInMs - minutes * minuteInMs) / secondInMs);
-
-    const getNumberFormat = (unit: string, number: number | bigint) =>
-        new Intl.NumberFormat(locale, {
-            style: 'unit',
-            unit,
-            ...options,
-        }).format(number);
-
-    let result = '';
-    if (days) {
-        result = getNumberFormat('day', days);
-    }
-    if (hours) {
-        result = `${result ? `${result} ` : ''}${getNumberFormat('hour', hours)}`;
-    }
-    if (minutes) {
-        result = `${result ? `${result} ` : ''}${getNumberFormat('minute', minutes)}`;
-    }
-
-    result = `${result ? `${result} ` : ''}${getNumberFormat('second', seconds)}`;
-    return result;
+    const formatter = new Intl.DurationFormat(locale, {
+        ...options,
+        style: options.style || 'long'
+    });
+    return formatter.format({
+        days,
+        hours,
+        minutes,
+        seconds
+    });
 }

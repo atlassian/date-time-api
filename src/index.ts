@@ -110,7 +110,7 @@ export function formatNumericDate(date = new Date(), locale = getLocale(), timeZ
 function getDateOptionByLocal(locale: string, timeZone: string) {
     const twoDigitLocales = ['de-DE', 'ja-JP'];
     const numericLocales = ['fi-FI', 'ko-KR'];
-    // Todo: Chrome_Headless_104_0_518_79_(Linux_x86_64) generates an incorrect format
+    // todo: Chrome_Headless_104_0_518_79_(Linux_x86_64) generates an incorrect format
     // remove Icelandic is-IS locale below once Chrome fixed Google Closure translations
     numericLocales.push('is-IS');
     const year: 'numeric' | '2-digit' = 'numeric';
@@ -170,10 +170,7 @@ export function formatDateTimeByOptions(options: Intl.DateTimeFormatOptions, dat
 }
 
 export function formatDuration(from: Date, to = new Date(), locale = getLocale()) {
-    const options: Intl.DurationFormatOptions = {
-        style: 'long'
-    };
-
+    const options: Intl.DurationFormatOptions = { style: 'long' };
     return formatDurationByOptions(options, from, to, locale);
 }
 

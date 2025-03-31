@@ -183,24 +183,26 @@ export function formatDurationByOptions(options: Intl.DurationFormatOptions, fro
         throw new Error('Please use formatDuration instead');
     }
 
-    const diffInSeconds = Math.floor((to.getTime() - from.getTime()) / 1000);
-    if (diffInSeconds <= 0) {
-        return '';
-    }
+    const diffInMs = to.getTime() - from.getTime();
+    const diffInSeconds = Math.floor(diffInMs / 1000);
 
     const days = Math.floor(diffInSeconds / (24 * 60 * 60));
     const hours = Math.floor((diffInSeconds % (24 * 60 * 60)) / (60 * 60));
     const minutes = Math.floor((diffInSeconds % (60 * 60)) / 60);
     const seconds = diffInSeconds % 60;
 
-    const formatter = new Intl.DurationFormat(locale, {
-        ...options,
-        style: options.style || 'long'
-    });
-    return formatter.format({
+    const duration = {
         days,
         hours,
         minutes,
         seconds
-    });
+    };
+
+    const formatter = new Intl.DurationFormat(locale, options);
+
+    if (locale.startsWith('zh') || locale.startsWith('ja') || locale.startsWith('ko')) {
+        return formatter.format(duration).replace(/\s+/g, '');
+    }
+
+    return formatter.format(duration);
 }

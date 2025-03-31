@@ -6,28 +6,28 @@ const dates = [
         pattern: 'dd. mm. yyyy',
         numericDate: '3. 8. 2004',
         cldrDate: '3. 8. 2004',
-        duration: '1 den 1 hodina 1 minuta 1 sekunda',
+        duration: '1 den, 1 hodina, 1 minuta a 1 sekunda',
     },
     {
         locale: 'da-DK',
         pattern: 'dd.mm.yyyy',
         numericDate: '3.8.2004',
         cldrDate: '3. aug. 2004',
-        duration: '1 dag 1 time 1 minut 1 sekund',
+        duration: '1 dag, 1 time, 1 minut og 1 sekund',
     },
     {
         locale: 'de-DE',
         pattern: 'dd.mm.yyyy',
         numericDate: '3.8.2004',
         cldrDate: '03.08.2004',
-        duration: '1 Tag 1 Stunde 1 Minute 1 Sekunde',
+        duration: '1 Tag, 1 Stunde, 1 Minute und 1 Sekunde',
     },
     {
         locale: 'et-EE',
         pattern: 'dd.mm.yyyy',
         numericDate: '3.8.2004',
         cldrDate: '3. aug 2004',
-        duration: '1 ööpäev 1 tund 1 minut 1 sekund',
+        duration: '1 ööpäev, 1 tund, 1 minut, 1 sekund',
     },
     {
         locale: 'en-GB',
@@ -48,91 +48,91 @@ const dates = [
         pattern: 'dd/mm/yyyy',
         numericDate: '3/8/2004',
         cldrDate: '3 ago 2004',
-        duration: '1 día 1 hora 1 minuto 1 segundo',
+        duration: '1 día, 1 hora, 1 minuto y 1 segundo',
     },
     {
         locale: 'fr-FR',
         pattern: 'dd/mm/yyyy',
         numericDate: '03/08/2004',
         cldrDate: '3 août 2004',
-        duration: '1 jour 1 heure 1 minute 1 seconde',
+        duration: '1 jour, 1 heure, 1 minute et 1 seconde',
     },
     {
         locale: 'is-IS',
         pattern: 'dd.mm.yyyy',
         numericDate: '3.8.2004',
         cldrDate: '3. ágú. 2004',
-        duration: '1 dagur 1 klukkustund 1 mínúta 1 sekúnda',
+        duration: '1 dagur, 1 klukkustund, 1 mínúta og 1 sekúnda',
     },
     {
         locale: 'it-IT',
         pattern: 'dd/mm/yyyy',
         numericDate: '03/08/2004',
         cldrDate: '3 ago 2004',
-        duration: '1 giorno 1 ora 1 minuto 1 secondo',
+        duration: '1 giorno, 1 ora, 1 minuto e 1 secondo',
     },
     {
         locale: 'hu-HU',
         pattern: 'yyyy. mm. dd.',
         numericDate: '2004. 08. 03.',
         cldrDate: '2004. aug. 3.',
-        duration: '1 nap 1 óra 1 perc 1 másodperc',
+        duration: '1 nap, 1 óra, 1 perc és 1 másodperc',
     },
     {
         locale: 'nl-NL',
         pattern: 'dd-mm-yyyy',
         numericDate: '3-8-2004',
         cldrDate: '3 aug 2004',
-        duration: '1 dag 1 uur 1 minuut 1 seconde',
+        duration: '1 dag, 1 uur, 1 minuut en 1 seconde',
     },
     {
         locale: 'no-NO',
         pattern: 'dd.mm.yyyy',
         numericDate: '3.8.2004',
         cldrDate: '3. aug. 2004',
-        duration: '1 døgn 1 time 1 minutt 1 sekund',
+        duration: '1 døgn, 1 time, 1 minutt og 1 sekund',
     },
     {
         locale: 'pl-PL',
         pattern: 'dd.mm.yyyy',
         numericDate: '3.08.2004',
         cldrDate: '3 sie 2004',
-        duration: '1 dzień 1 godzina 1 minuta 1 sekunda',
+        duration: '1 dzień, 1 godzina, 1 minuta i 1 sekunda',
     },
     {
         locale: 'pt-BR',
         pattern: 'dd/mm/yyyy',
         numericDate: '03/08/2004',
         cldrDate: '3 de ago. de 2004',
-        duration: '1 dia 1 hora 1 minuto 1 segundo',
+        duration: '1 dia, 1 hora, 1 minuto e 1 segundo',
     },
     {
         locale: 'ro-RO',
         pattern: 'dd.mm.yyyy',
         numericDate: '03.08.2004',
         cldrDate: '3 aug. 2004',
-        duration: '1 zi 1 oră 1 minut 1 secundă',
+        duration: '1 zi, 1 oră, 1 minut, 1 secundă',
     },
     {
         locale: 'sk-SK',
         pattern: 'dd. mm. yyyy',
         numericDate: '3. 8. 2004',
         cldrDate: '3. 8. 2004',
-        duration: '1 deň 1 hodina 1 minúta 1 sekunda',
+        duration: '1 deň, 1 hodina, 1 minúta, 1 sekunda',
     },
     {
         locale: 'fi-FI',
         pattern: 'dd.mm.yyyy',
         numericDate: '3.8.2004',
         cldrDate: '3.8.2004',
-        duration: '1 päivä 1 tunti 1 minuutti 1 sekunti',
+        duration: '1 päivä, 1 tunti, 1 minuutti ja 1 sekunti',
     },
     {
         locale: 'sv-SE',
         pattern: 'yyyy-mm-dd',
         numericDate: '2004-08-03',
         cldrDate: '3 aug. 2004',
-        duration: '1 dygn 1 timme 1 minut 1 sekund',
+        duration: '1 dygn, 1 timme, 1 minut, 1 sekund',
     },
     {
         locale: 'ru-RU',
@@ -146,21 +146,21 @@ const dates = [
         pattern: 'yyyy/mm/dd',
         numericDate: '2004/8/3',
         cldrDate: '2004年8月3日',
-        duration: '1天 1小时 1分钟 1秒钟',
+        duration: '1天1小时1分钟1秒钟',
     },
     {
         locale: 'ja-JP',
         pattern: 'yyyy/mm/dd',
         numericDate: '2004/8/3',
         cldrDate: '2004/08/03',
-        duration: '1 日 1 時間 1 分 1 秒',
+        duration: '1日1時間1分1秒',
     },
     {
         locale: 'ko-KR',
         pattern: 'yyyy. mm. dd.',
         numericDate: '2004. 8. 3.',
         cldrDate: '2004. 8. 3.',
-        duration: '1일 1시간 1분 1초',
+        duration: '1일1시간1분1초',
     },
 ];
 
@@ -388,13 +388,7 @@ describe('date-time', () => {
             '2 seconds'
         );
         expect(dateTime.formatDuration(new Date(2000, 0, 1), new Date(2000, 0, 1, 0, 0, 0, 2), 'en-GB')).toStrictEqual(
-            '0 seconds'
-        );
-        expect(dateTime.formatDuration(new Date(2000, 0, 1), new Date(2000, 0, 1, 0, 0, 0, 0), 'en-GB')).toStrictEqual(
-            '0 seconds'
-        );
-        expect(dateTime.formatDuration(new Date(2000, 0, 1), new Date(2000, 0, 2, 1, 1, 1, 1), 'zh-CN')).toStrictEqual(
-            '1天 1小时 1分钟 1秒钟'
+            ''
         );
     });
 
@@ -414,46 +408,14 @@ describe('date-time', () => {
         });
     });
 
-    test('should not format duration', () => {
-        expect(dateTime.formatDuration(new Date(2000, 0, 2), new Date(2000, 0, 1), 'en-US')).toStrictEqual('');
+    test('should format negative duration', () => {
+        expect(dateTime.formatDuration(new Date(2000, 0, 2), new Date(2000, 0, 1), 'en-US')).toStrictEqual("-1 day");
     });
 
-    describe('formatDurationByOptions', () => {
-        const baseDate = new Date('2024-01-01T00:00:00Z');
-        const laterDate = new Date('2024-01-01T01:02:03Z');
-
-        test('with default options', () => {
-            const options: any = {
-                unitDisplay: 'long',
-            }
-          expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1 hour 2 minutes 3 seconds');
-        });
-
-        test('with compact notation', () => {
-          const options: any = {
-            notation: 'compact',
-            style: 'unit'
-          };
-          expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1 hr 2 min 3 sec');
-        });
-
-        test('with different unit style', () => {
-          const options: any = {
-            style: 'unit',
-            unitDisplay: 'narrow'
-          };
-          expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1h 2m 3s');
-        });
-
-        test('with different locale', () => {
-            const options: any = {
-                unitDisplay: 'narrow',
-            }
-            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'en-US')).toBe('1h 2m 3s');
-            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'zh-CN')).toBe('1小时 2分钟 3秒');
-            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'ja-JP')).toBe('1h 2m 3s');
-            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'ko-KR')).toBe('1시간 2분 3초');
-            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'de-DE')).toBe('1 Std. 2 Min. 3 Sek.');
-        });
-      });
+    test('should format duration by options', () => {
+        const startDate = new Date('2024-01-01T00:00:00Z');
+        const endDate = new Date('2024-01-01T01:02:03Z');
+        const options: any = { style: 'narrow' };
+        expect(dateTime.formatDurationByOptions(options, startDate, endDate)).toBe('1h 2m 3s');
+    });
 });

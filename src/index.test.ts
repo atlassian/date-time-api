@@ -434,13 +434,137 @@ describe("date-time", () => {
     ).toStrictEqual("-1 day");
   });
 
-  test("should format duration by options", () => {
-    const startDate = new Date("2024-01-01T00:00:00Z");
-    const endDate = new Date("2024-01-01T01:02:03Z");
-    const options: Intl.DurationFormatOptions = { style: "narrow" };
+    describe('formatDurationByOptions', () => {
+        const baseDate = new Date('2024-01-01T00:00:00Z');
+        const laterDate = new Date('2024-01-02T01:02:03Z');
+        
+        test('with default options', () => {
+            const options: Intl.DurationFormatOptions = { 
+                style: 'long',
+            }
+          expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1 day, 1 hour, 2 minutes, 3 seconds');
+        });
 
-    expect(dateTime.formatDurationByOptions(options, startDate, endDate)).toBe(
-      "1h 2m 3s"
-    );
-  });
+        test('with default options, 0 seconds', () => {
+            let options: Intl.DurationFormatOptions = { 
+                style: 'long',
+            }
+            expect(dateTime.formatDurationByOptions(options, baseDate, baseDate, 'en-US')).toBe('0 seconds');
+            options = {
+                style: 'narrow',
+            }
+            expect(dateTime.formatDurationByOptions(options, baseDate, baseDate, 'en-US')).toBe('0s');
+        });
+      
+        test('with different style', () => {
+            const options: Intl.DurationFormatOptions = {
+                style: 'narrow',
+            };
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1d 1h 2m 3s');
+        });
+
+        test('with US locale', () => {
+            const options: Intl.DurationFormatOptions = {
+                style: 'narrow',
+            }
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'en-US')).toBe('1d 1h 2m 3s');
+        });
+
+        test('with CN locale', () => {
+            const options: Intl.DurationFormatOptions = {
+                style: 'narrow',
+            }
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'zh-CN')).toBe('1天1小时2分钟3秒');
+        });
+
+        test('with JP locale', () => {
+            // Japanese locale needs to display unit as long, as narrow is wrong, returns english, we override to long in the implementation
+            const options: Intl.DurationFormatOptions = {
+                style: 'narrow',
+            }
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'ja-JP')).toBe('1日1時間2分3秒');
+        });
+
+        test('with KR locale', () => {
+            const options: Intl.DurationFormatOptions = {
+                style: 'narrow',
+            }
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'ko-KR')).toBe('1일1시간2분3초');
+        });
+
+        test('with DE locale', () => {
+            const options: Intl.DurationFormatOptions = {
+                style: 'narrow',
+            }
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'de-DE')).toBe('1 T, 1 Std., 2 Min. und 3 Sek.');
+        });
+
+      });
+      describe('formatDurationByOptions fallback', () => {
+        const originalDurationFormat = Intl.DurationFormat;
+        
+        beforeEach(() => {
+          // Use TypeScript trick to allow property deletion
+          Object.defineProperty(Intl, 'DurationFormat', {
+            configurable: true,
+            value: undefined,
+            writable: true
+          });
+        });
+        
+        afterEach(() => {
+          // Restore the original implementation
+          Object.defineProperty(Intl, 'DurationFormat', {
+            configurable: true,
+            value: originalDurationFormat,
+            writable: true
+          });
+        });
+
+        const baseDate = new Date('2024-01-01T00:00:00Z');
+        const laterDate = new Date('2024-01-02T01:02:03Z');
+        // const laterDate = new Date('2024-01-01T00:00:10Z');
+
+        
+        test('with default options', () => {
+          const options: Intl.DurationFormatOptions = { 
+            style: 'long',
+          };
+          
+          // This should use the fallback implementation
+          const result = dateTime.formatDurationByOptions(options, baseDate, laterDate);
+          expect(result).toStrictEqual('1 day 1 hour 2 minutes 3 seconds');
+          expect(result).toBeDefined();
+          // Add more specific expectations based on your fallback implementation
+        });
+
+        test('with US locale', () => {
+            let options: Intl.DurationFormatOptions = {
+                style: 'long',
+            }
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'en-US')).toStrictEqual('1 day 1 hour 2 minutes 3 seconds');
+            options.style = 'narrow';
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'en-US')).toStrictEqual('1d 1h 2m 3s');
+        });
+
+        test('with CN locale', () => {
+            let options: Intl.DurationFormatOptions = {
+                style: 'long',
+            }
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'zh-CN')).toStrictEqual('1天1小时2分钟3秒钟');
+            options.style = 'narrow';
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'zh-CN')).toStrictEqual('1天1小时2分钟3秒');
+        });
+
+        test('with JP locale', () => {
+            // For Japanese locale, narrow is wrong, returns english, so we override to long in the fallback implementation
+            let options: Intl.DurationFormatOptions = {
+                style: 'long',
+            }
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'ja-JP')).toStrictEqual('1日1時間2分3秒');
+            options.style = 'narrow';
+            expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'ja-JP')).toStrictEqual('1日1時間2分3秒');
+        });
+        
+      })
 });

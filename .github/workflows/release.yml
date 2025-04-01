@@ -41,12 +41,12 @@ jobs:
           ARTIFACTORY_API_KEY_ENCODED=$(echo -n ${{ secrets.ARTIFACTORY_API_KEY }} | base64)
           # Create .npmrc-public file
           cat > .npmrc-public << EOF
-          registry=https://packages.atlassian.com/api/npm/npm-public/
-          @atlassian:registry=https://packages.atlassian.com/api/npm/npm-public/
-          //packages.atlassian.com/api/npm/npm-public/:username=${{ secrets.ARTIFACTORY_USERNAME }}
-          //packages.atlassian.com/api/npm/npm-public/:_password=${{ secrets.ARTIFACTORY_API_KEY_ENCODED}}
-          //packages.atlassian.com/api/npm/npm-public/:email=${{ secrets.ARTIFACTORY_USERNAME }}@atlassian.com
-          //packages.atlassian.com/api/npm/npm-public/:always-auth=true
+          registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/
+          @atlassian:registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/
+          //packages.atlassian.com/artifactory/api/npm/npm-public/:username=${{ secrets.ARTIFACTORY_USERNAME }}
+          //packages.atlassian.com/artifactory/api/npm/npm-public/:_password=${{ secrets.ARTIFACTORY_API_KEY_ENCODED}}
+          //packages.atlassian.com/artifactory/api/npm/npm-public/:email=${{ secrets.ARTIFACTORY_USERNAME }}@atlassian.com
+          //packages.atlassian.com/artifactory/api/npm/npm-public/:always-auth=true
           EOF
           mv .npmrc-public ~/.npmrc-public
           chmod 600 ~/.npmrc-public

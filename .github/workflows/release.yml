@@ -34,21 +34,21 @@ jobs:
         with:
           output-modes: environment
 
-      - name: Configure npmrc for Artifactory
-        env:
-          ARTIFACTORY_USERNAME: ${{ env.ARTIFACTORY_USERNAME }}
-          ARTIFACTORY_API_KEY: ${{ env.ARTIFACTORY_API_KEY }}
+      - name: Debug
         run: |
-          echo "//packages.atlassian.com/npm/:_auth = ${ARTIFACTORY_USERNAME}:${ARTIFACTORY_API_KEY}" > .npmrc
+          echo "secrets.ARTIFACTORY_USERNAME=${{ secrets.ARTIFACTORY_USERNAME }}"
+          echo "secrets.ARTIFACTORY_API_KEY=${{ secrets.ARTIFACTORY_API_KEY }}"
+          echo "ARTIFACTORY_USERNAME=${{ ARTIFACTORY_USERNAME }}"
+          echo "ARTIFACTORY_API_KEY=${{ ARTIFACTORY_API_KEY }}"
 
-      - name: Debug Configuration
+      - name: Configure .npmrc for publishing
         run: |
-          echo "Username: $ARTIFACTORY_USERNAME"
-          echo "API Key: $ARTIFACTORY_API_KEY"
-          cat .npmrc
-        env:
-          ARTIFACTORY_USERNAME: ${{ env.ARTIFACTORY_USERNAME }}
-          ARTIFACTORY_API_KEY: ${{ env.ARTIFACTORY_API_KEY }}
+          echo "@atlassian:registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/" >> ~/.npmrc
+          echo "//packages.atlassian.com/api/npm/npm-public/:_password=${{ ARTIFACTORY_API_KEY }}" >> ~/.npmrc
+          echo "//packages.atlassian.com/api/npm/npm-public/:username=${ARTIFACTORY_USERNAME}" >> ~/.npmrc
+          echo "//packages.atlassian.com/api/npm/npm-public/:email=${ARTIFACTORY_USERNAME}@your-domain.com" >> ~/.npmrc
+          echo "//packages.atlassian.com/api/npm/npm-public/:always-auth=true" >> ~/.npmrc
+          chmod 600 ~/.npmrc
 
-      - name: Publish NPM Package
-        run: npm publish --registry https://packages.atlassian.com/api/npm/npm-public
+      - name: Publish package
+        run: npm publish

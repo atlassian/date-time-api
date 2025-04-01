@@ -23,22 +23,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build project
-        run: npm run build
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 23
-
-      - name: Install dependencies
-        run: npm ci
-
       - name: Test project
         run: npm t
+
+      - name: Build project
+        run: npm run build
 
       - name: Get NPM Publish Token
         id: publish-token

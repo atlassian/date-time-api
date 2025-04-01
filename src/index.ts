@@ -191,22 +191,50 @@ export function formatDurationByOptions(options: Intl.DurationFormatOptions, fro
     const diffInMs = to.getTime() - from.getTime();
     const diffInSeconds = Math.floor(diffInMs / 1000);
 
-    const days = Math.floor(diffInSeconds / (24 * 60 * 60));
-    const hours = Math.floor((diffInSeconds % (24 * 60 * 60)) / (60 * 60));
-    const minutes = Math.floor((diffInSeconds % (60 * 60)) / 60);
-    const seconds = diffInSeconds % 60;
+    const days = Math.floor(milliseconds / dayInMs);
+    const hours = Math.floor((milliseconds - days * dayInMs) / hourInMs);
+    const minutes = Math.floor((milliseconds - days * dayInMs - hours * hourInMs) / minuteInMs);
+    const seconds = Math.floor((milliseconds - days * dayInMs - hours * hourInMs - minutes * minuteInMs) / secondInMs);
 
-    const duration = {
-        days,
-        hours,
-        minutes,
-        seconds
-    };
+    // Feature detection for Intl.DurationFormat, not supported in older browsers
+    if (typeof Intl.DurationFormat === 'function') {
+        try {
+            const duration = {
+                days,
+                hours,
+                minutes,
+                seconds
+            };
+            let durationString = new Intl.DurationFormat(locale, options).format(duration);
+            if (durationString === '') {
+                // Use legacy implementation if Intl.DurationFormat returns empty string (duration less than 1 second)
+                durationString = getNumberFormat('second', seconds);
+            }
+            if (noSpaceLocales.includes(locale)) {
+                durationString = durationString.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '').replace(' ', '');
+            }
+            return durationString;
+        } catch (error) {
+            console.warn('Intl.DurationFormat failed, falling back to custom implementation', error);
+            // Fall through to legacy implementation
+        }
+    }
 
-    const formatter = new Intl.DurationFormat(locale, options);
-
-    if (locale.startsWith('zh') || locale.startsWith('ja') || locale.startsWith('ko')) {
-        return formatter.format(duration).replace(/\s+/g, '');
+    let result = '';
+    let space = ' ';
+    // Chinese and Japanese locales don't need spaces between units
+    if (noSpaceLocales.includes(locale)) {
+        space = '';
+    }
+    
+    if (days) {
+        result = getNumberFormat('day', days);
+    }
+    if (hours) {
+        result = `${result ? `${result}${space}` : ''}${getNumberFormat('hour', hours)}`;
+    }
+    if (minutes) {
+        result = `${result ? `${result}${space}` : ''}${getNumberFormat('minute', minutes)}`;
     }
 
     return formatter.format(duration);

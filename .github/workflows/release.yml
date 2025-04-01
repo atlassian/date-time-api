@@ -41,7 +41,7 @@ jobs:
           ARTIFACTORY_API_KEY_ENCODED=$(echo -n ${{ secrets.ARTIFACTORY_API_KEY }} | base64)
           # Create .npmrc-public file
           cat > .npmrc-public << EOF
-          registry=https://registry.npmjs.org/
+          registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/
           @atlassian:registry=https://packages.atlassian.com/api/npm/npm-public/
           //packages.atlassian.com/api/npm/npm-public/:username=${{ secrets.ARTIFACTORY_USERNAME }}
           //packages.atlassian.com/api/npm/npm-public/:_password=${{ secrets.ARTIFACTORY_API_KEY_ENCODED}}

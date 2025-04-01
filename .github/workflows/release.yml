@@ -38,15 +38,13 @@ jobs:
         run: |
           echo "secrets.ARTIFACTORY_USERNAME=${{ secrets.ARTIFACTORY_USERNAME }}"
           echo "secrets.ARTIFACTORY_API_KEY=${{ secrets.ARTIFACTORY_API_KEY }}"
-          echo "ARTIFACTORY_USERNAME=${{ ARTIFACTORY_USERNAME }}"
-          echo "ARTIFACTORY_API_KEY=${{ ARTIFACTORY_API_KEY }}"
 
       - name: Configure .npmrc for publishing
         run: |
           echo "@atlassian:registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/" >> ~/.npmrc
-          echo "//packages.atlassian.com/api/npm/npm-public/:_password=${{ ARTIFACTORY_API_KEY }}" >> ~/.npmrc
-          echo "//packages.atlassian.com/api/npm/npm-public/:username=${ARTIFACTORY_USERNAME}" >> ~/.npmrc
-          echo "//packages.atlassian.com/api/npm/npm-public/:email=${ARTIFACTORY_USERNAME}@your-domain.com" >> ~/.npmrc
+          echo "//packages.atlassian.com/api/npm/npm-public/:_password=${{ secrets.ARTIFACTORY_API_KEY }}" >> ~/.npmrc
+          echo "//packages.atlassian.com/api/npm/npm-public/:username=${{secrets.ARTIFACTORY_USERNAME}}" >> ~/.npmrc
+          echo "//packages.atlassian.com/api/npm/npm-public/:email=zxu2@atlassian.com" >> ~/.npmrc
           echo "//packages.atlassian.com/api/npm/npm-public/:always-auth=true" >> ~/.npmrc
           chmod 600 ~/.npmrc
 

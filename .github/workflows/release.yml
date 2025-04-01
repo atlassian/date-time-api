@@ -6,6 +6,12 @@ on:
       - 'v*'
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+        contents: read
+        id-token: write
+
   release:
     name: Create release
     runs-on: ubuntu-latest

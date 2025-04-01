@@ -34,11 +34,6 @@ jobs:
         with:
           output-modes: environment
 
-      - name: Debug
-        run: |
-          echo "secrets.ARTIFACTORY_USERNAME=${{ secrets.ARTIFACTORY_USERNAME }}"
-          echo "secrets.ARTIFACTORY_API_KEY=${{ secrets.ARTIFACTORY_API_KEY }}"
-
       - name: Configure .npmrc for publishing
         run: |
           echo "@atlassian:registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/" >> ~/.npmrc

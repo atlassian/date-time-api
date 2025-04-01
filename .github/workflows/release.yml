@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 23
+          registry-url: 'https://packages.atlassian.com/api/npm/npm-public/'
 
       - name: Install dependencies
         run: npm ci
@@ -28,13 +29,30 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get NPM Publish Token
+        id: publish-token
+        uses: atlassian-labs/artifact-publish-token@v1.0.1
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          output-modes: environment
+
+      - name: Configure npmrc for Artifactory
+        env:
+          ARTIFACTORY_USERNAME: ${{ env.ARTIFACTORY_USERNAME }}
+          ARTIFACTORY_API_KEY: ${{ env.ARTIFACTORY_API_KEY }}
+        run: |
+          echo "//packages.atlassian.com/npm/:_auth = ${ARTIFACTORY_USERNAME}:${ARTIFACTORY_API_KEY}" > .npmrc
+
+      - name: Debug Configuration
+        run: |
+          echo "Username: $ARTIFACTORY_USERNAME"
+          echo "API Key: $ARTIFACTORY_API_KEY"
+          cat .npmrc
+        env:
+          ARTIFACTORY_USERNAME: ${{ env.ARTIFACTORY_USERNAME }}
+          ARTIFACTORY_API_KEY: ${{ env.ARTIFACTORY_API_KEY }}
+
+      - name: Publish NPM Package
+        run: npm publish
+        env:
+          ARTIFACTORY_USERNAME: ${{ env.ARTIFACTORY_USERNAME }}
+          ARTIFACTORY_API_KEY: ${{ env.ARTIFACTORY_API_KEY }}

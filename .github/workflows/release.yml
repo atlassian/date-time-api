@@ -37,6 +37,10 @@ jobs:
 
       - name: Configure .npmrc-public
         run: |
+          if [ -z "$ARTIFACTORY_API_KEY" ] || [ -z "$ARTIFACTORY_USERNAME" ]; then
+            echo "Error: ARTIFACTORY_API_KEY or ARTIFACTORY_USERNAME is not set"
+            exit 1
+          fi
           ARTIFACTORY_API_KEY_ENCODED=$(echo -n $ARTIFACTORY_API_KEY | base64) && cat > .npmrc-public << EOF
           registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/
           @atlassian:registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/

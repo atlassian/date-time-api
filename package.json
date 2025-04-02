@@ -42,6 +42,6 @@
     "typescript": "^5.7.3"
   },
   "publishConfig": {
-    "registry": "https://packages.atlassian.com/artifactory/api/npm/npm-public/"
+		"registry": "https://packages.atlassian.com/api/npm/npm-public/"
   }
 }

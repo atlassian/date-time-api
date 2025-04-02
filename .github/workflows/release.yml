@@ -29,6 +29,10 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Debug
+        run: |
+          echo "${{ secrets.NPM_USERNAME }}" | cut -c 1-3
+
       - name: Publish to npm
         run: |
           echo "registry=https://packages.atlassian.com/api/npm/npm-public/" >> ~/.npmrc
@@ -37,7 +41,5 @@ jobs:
           echo "//packages.atlassian.com/api/npm/npm-public/:_password=${{ secrets.NPM_PASSWORD }}" >> ~/.npmrc
           echo "//packages.atlassian.com/api/npm/npm-public/:email=zxu2@atlassian.com" >> ~/.npmrc
           echo "//packages.atlassian.com/api/npm/npm-public/:always-auth=true" >> ~/.npmrc
-
-          npm publish
 
           npm publish

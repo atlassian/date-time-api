@@ -41,7 +41,7 @@ jobs:
           registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/
           @atlassian:registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/
           //packages.atlassian.com/artifactory/api/npm/npm-public/:username=$ARTIFACTORY_USERNAME
-          //packages.atlassian.com/artifactory/api/npm/npm-public/:_password=$ARTIFACTORY_API_KEY
+          //packages.atlassian.com/artifactory/api/npm/npm-public/:_password=${ARTIFACTORY_API_KEY_ENCODED}
           //packages.atlassian.com/artifactory/api/npm/npm-public/:email=zxu2@atlassian.com
           //packages.atlassian.com/artifactory/api/npm/npm-public/:always-auth=true
           EOF

@@ -41,8 +41,6 @@ jobs:
             echo "Error: ARTIFACTORY_API_KEY or ARTIFACTORY_USERNAME is not set"
             exit 1
           fi
-          echo "ARTIFACTORY_USERNAME (first 3 chars): ${ARTIFACTORY_USERNAME:0:3}..."
-          echo "ARTIFACTORY_API_KEY (first 3 chars): ${ARTIFACTORY_API_KEY:0:3}..."
 
           ARTIFACTORY_API_KEY_ENCODED=$(echo -n $ARTIFACTORY_API_KEY | base64) && cat > .npmrc-public << EOF
           registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/

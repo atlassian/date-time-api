@@ -47,4 +47,4 @@ jobs:
           EOF
 
       - name: Publish package
-        run: npm publish
+        run: npm publish --userconfig=~/.npmrc-public

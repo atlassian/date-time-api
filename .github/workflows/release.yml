@@ -43,12 +43,12 @@ jobs:
           fi
 
           ARTIFACTORY_API_KEY_ENCODED=$(echo -n $ARTIFACTORY_API_KEY | base64) && cat > .npmrc-public << EOF
-          registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/
-          @atlassian:registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/
-          //packages.atlassian.com/artifactory/api/npm/npm-public/:username=$ARTIFACTORY_USERNAME
-          //packages.atlassian.com/artifactory/api/npm/npm-public/:_password=${ARTIFACTORY_API_KEY_ENCODED}
-          //packages.atlassian.com/artifactory/api/npm/npm-public/:email=zxu2@atlassian.com
-          //packages.atlassian.com/artifactory/api/npm/npm-public/:always-auth=true
+          registry=https://packages.atlassian.com/api/npm/npm-public/
+          @atlassian:registry=https://packages.atlassian.com/api/npm/npm-public/
+          //packages.atlassian.com/api/npm/npm-public/:username=$ARTIFACTORY_USERNAME
+          //packages.atlassian.com/api/npm/npm-public/:_password=${ARTIFACTORY_API_KEY_ENCODED}
+          //packages.atlassian.com/api/npm/npm-public/:email=zxu2@atlassian.com
+          //packages.atlassian.com/api/npm/npm-public/:always-auth=true
           EOF
 
           mv .npmrc-public ~/.npmrc-public

@@ -1,3 +1,6 @@
+// todo: remove global.d.ts after this is closed https://github.com/microsoft/TypeScript/issues/60608
+/// <reference path="./global.d.ts" />
+
 import * as dateTime from "./index";
 import dates from "./test-dates.json";
 
@@ -434,7 +437,8 @@ describe("date-time", () => {
   test("should format duration by options", () => {
     const startDate = new Date("2024-01-01T00:00:00Z");
     const endDate = new Date("2024-01-01T01:02:03Z");
-    const options = { style: "narrow" };
+    const options: Intl.DurationFormatOptions = { style: "narrow" };
+
     expect(dateTime.formatDurationByOptions(options, startDate, endDate)).toBe(
       "1h 2m 3s"
     );

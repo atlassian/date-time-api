@@ -1,45 +1,32 @@
-declare global {
-  type Duration = {
-    years?: number;
-    months?: number;
-    weeks?: number;
-    days?: number;
-    hours?: number;
-    minutes?: number;
-    seconds?: number;
-    milliseconds?: number;
-    microseconds?: number;
-    nanoseconds?: number;
-  };
+// todo: remove Intl.DurationFormat types after this is closed
+// https://github.com/microsoft/TypeScript/issues/60608
 
+type Duration = {
+  years?: number;
+  months?: number;
+  weeks?: number;
+  days?: number;
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
+  milliseconds?: number;
+  microseconds?: number;
+  nanoseconds?: number;
+};
+
+type DurationUnits = keyof Duration;
+
+declare global {
   namespace Intl {
     interface DurationFormatOptions {
       style?: "long" | "short" | "narrow" | "digital";
       fractionalDigits?: number;
-      years?: "long" | "short" | "narrow";
-      yearsDisplay?: "auto" | "always";
-      months?: "long" | "short" | "narrow";
-      monthsDisplay?: "auto" | "always";
-      weeks?: "long" | "short" | "narrow";
-      weeksDisplay?: "auto" | "always";
-      days?: "long" | "short" | "narrow";
-      daysDisplay?: "auto" | "always";
-      hours?: "long" | "short" | "narrow";
-      hoursDisplay?: "auto" | "always";
-      minutes?: "long" | "short" | "narrow";
-      minutesDisplay?: "auto" | "always";
-      seconds?: "long" | "short" | "narrow";
-      secondsDisplay?: "auto" | "always";
-      milliseconds?: "long" | "short" | "narrow";
-      millisecondsDisplay?: "auto" | "always";
-      microseconds?: "long" | "short" | "narrow";
-      microsecondsDisplay?: "auto" | "always";
-      nanoseconds?: "long" | "short" | "narrow";
-      nanosecondsDisplay?: "auto" | "always";
+      [K in DurationUnits as `${K}`]?: "long" | "short" | "narrow";
+      [K in DurationUnits as `${K}Display`]?: "auto" | "always";
     }
 
     var DurationFormat: {
-      new (locales?: string | string[], options?: Intl.DurationFormatOptions): Intl.DurationFormat;
+      new (locales?: string | string[], options?: DurationFormatOptions): DurationFormat;
       supportedLocalesOf(locales: string | string[]): string[];
     };
 
@@ -50,26 +37,8 @@ declare global {
         locale: string;
         numberingSystem: string;
         style: "long" | "short" | "narrow" | "digital";
-        years?: "long" | "short" | "narrow";
-        yearsDisplay?: "auto" | "always";
-        months?: "long" | "short" | "narrow";
-        monthsDisplay?: "auto" | "always";
-        weeks?: "long" | "short" | "narrow";
-        weeksDisplay?: "auto" | "always";
-        days?: "long" | "short" | "narrow";
-        daysDisplay?: "auto" | "always";
-        hours?: "long" | "short" | "narrow";
-        hoursDisplay?: "auto" | "always";
-        minutes?: "long" | "short" | "narrow";
-        minutesDisplay?: "auto" | "always";
-        seconds?: "long" | "short" | "narrow";
-        secondsDisplay?: "auto" | "always";
-        milliseconds?: "long" | "short" | "narrow";
-        millisecondsDisplay?: "auto" | "always";
-        microseconds?: "long" | "short" | "narrow";
-        microsecondsDisplay?: "auto" | "always";
-        nanoseconds?: "long" | "short" | "narrow";
-        nanosecondsDisplay?: "auto" | "always";
+        [K in DurationUnits as `${K}`]?: "long" | "short" | "narrow";
+        [K in DurationUnits as `${K}Display`]?: "auto" | "always";
       };
     }
   }

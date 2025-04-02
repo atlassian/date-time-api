@@ -38,14 +38,14 @@ jobs:
       - name: Configure .npmrc-public
         run: |
           # Encode API key in base64
-          ARTIFACTORY_API_KEY_ENCODED=$(echo -n ${{ secrets.ARTIFACTORY_API_KEY }} | base64)
+          ARTIFACTORY_API_KEY_ENCODED=$(echo -n $ARTIFACTORY_API_KEY | base64)
           # Create .npmrc-public file
           cat > .npmrc-public << EOF
           registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/
           @atlassian:registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/
-          //packages.atlassian.com/artifactory/api/npm/npm-public/:username=${{ secrets.ARTIFACTORY_USERNAME }}
-          //packages.atlassian.com/artifactory/api/npm/npm-public/:_password=${{ secrets.ARTIFACTORY_API_KEY_ENCODED}}
-          //packages.atlassian.com/artifactory/api/npm/npm-public/:email=${{ secrets.ARTIFACTORY_USERNAME }}@atlassian.com
+          //packages.atlassian.com/artifactory/api/npm/npm-public/:username=$ARTIFACTORY_USERNAME
+          //packages.atlassian.com/artifactory/api/npm/npm-public/:_password=$ARTIFACTORY_API_KEY_ENCODED
+          //packages.atlassian.com/artifactory/api/npm/npm-public/:email=$ARTIFACTORY_USERNAME@atlassian.com
           //packages.atlassian.com/artifactory/api/npm/npm-public/:always-auth=true
           EOF
           mv .npmrc-public ~/.npmrc-public

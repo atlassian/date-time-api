@@ -41,12 +41,13 @@ jobs:
           registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/
           @atlassian:registry=https://packages.atlassian.com/artifactory/api/npm/npm-public/
           //packages.atlassian.com/artifactory/api/npm/npm-public/:username=$ARTIFACTORY_USERNAME
-          //packages.atlassian.com/artifactory/api/npm/npm-public/:_password=${ARTIFACTORY_API_KEY_ENCODED}
+          //packages.atlassian.com/artifactory/api/npm/npm-public/:_password=$ARTIFACTORY_API_KEY
           //packages.atlassian.com/artifactory/api/npm/npm-public/:email=zxu2@atlassian.com
           //packages.atlassian.com/artifactory/api/npm/npm-public/:always-auth=true
           EOF
-          chmod 600 .npmrc-public
+
           mv .npmrc-public ~/.npmrc-public
+          chmod 600 ~/.npmrc-public
 
       - name: Publish package
         run: npm publish --userconfig=~/.npmrc-public

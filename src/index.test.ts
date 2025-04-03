@@ -402,7 +402,7 @@ describe("date-time", () => {
         new Date(2000, 0, 1, 0, 0, 0, 2),
         "en-GB"
       )
-    ).toStrictEqual("");
+    ).toStrictEqual("0 seconds");
   });
 
   test("should format duration by locale", () => {

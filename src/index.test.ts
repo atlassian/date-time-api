@@ -1,6 +1,7 @@
 // todo: remove global.d.ts after this is closed https://github.com/microsoft/TypeScript/issues/60608
 /// <reference path="./global.d.ts" />
 
+
 import * as dateTime from "./index";
 import dates from "./test-dates.json";
 
@@ -438,14 +439,14 @@ describe("date-time", () => {
         const baseDate = new Date('2024-01-01T00:00:00Z');
         const laterDate = new Date('2024-01-02T01:02:03Z');
         
-        test('with default options', () => {
+        test('with long style', () => {
             const options: Intl.DurationFormatOptions = { 
                 style: 'long',
             }
           expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1 day, 1 hour, 2 minutes, 3 seconds');
         });
 
-        test('with default options, 0 seconds', () => {
+        test('with long style, 0 duration', () => {
             let options: Intl.DurationFormatOptions = { 
                 style: 'long',
             }
@@ -454,6 +455,11 @@ describe("date-time", () => {
                 style: 'narrow',
             }
             expect(dateTime.formatDurationByOptions(options, baseDate, baseDate, 'en-US')).toBe('0s');
+            options = {
+              style: 'narrow',
+              minutesDisplay: 'always',
+            } as Intl.DurationFormatOptions;
+            expect(dateTime.formatDurationByOptions(options, baseDate, baseDate, 'en-US')).toBe('0m');
         });
       
         test('with different style', () => {

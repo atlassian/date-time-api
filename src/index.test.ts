@@ -1,7 +1,6 @@
 // todo: remove global.d.ts after this is closed https://github.com/microsoft/TypeScript/issues/60608
 /// <reference path="./global.d.ts" />
 
-
 import * as dateTime from "./index";
 import dates from "./test-dates.json";
 
@@ -510,27 +509,17 @@ describe("date-time", () => {
         const originalDurationFormat = Intl.DurationFormat;
         
         beforeEach(() => {
-          // Use TypeScript trick to allow property deletion
-          Object.defineProperty(Intl, 'DurationFormat', {
-            configurable: true,
-            value: undefined,
-            writable: true
-          });
+          // Mock DurationFormat as undefined using TypeScript type assertions
+          (Intl as any).DurationFormat = undefined;
         });
         
         afterEach(() => {
           // Restore the original implementation
-          Object.defineProperty(Intl, 'DurationFormat', {
-            configurable: true,
-            value: originalDurationFormat,
-            writable: true
-          });
+          (Intl as any).DurationFormat = originalDurationFormat;
         });
 
         const baseDate = new Date('2024-01-01T00:00:00Z');
         const laterDate = new Date('2024-01-02T01:02:03Z');
-        // const laterDate = new Date('2024-01-01T00:00:10Z');
-
         
         test('with default options', () => {
           const options: Intl.DurationFormatOptions = { 
@@ -542,6 +531,13 @@ describe("date-time", () => {
           expect(result).toStrictEqual('1 day 1 hour 2 minutes 3 seconds');
           expect(result).toBeDefined();
           // Add more specific expectations based on your fallback implementation
+        });
+
+        test('throws error with null options', () => {
+            expect(() => {
+                // @ts-ignore - Deliberately testing invalid input
+                dateTime.formatDurationByOptions(null, baseDate, laterDate);
+            }).toThrow('Please use formatDuration instead');
         });
 
         test('with US locale', () => {

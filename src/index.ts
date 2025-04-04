@@ -232,22 +232,21 @@ export function formatDurationByOptions(options: Intl.DurationFormatOptions, fro
         }
     }
 
-    let result = '';
+    const parts = [];
     
     if (days) {
-        result = getNumberFormat('day', days);
+        parts.push(getNumberFormat('day', days));
     }
     if (hours) {
-        result = `${result ? `${result} ` : ''}${getNumberFormat('hour', hours)}`;
+        parts.push(getNumberFormat('hour', hours));
     }
     if (minutes) {
-        result = `${result ? `${result} ` : ''}${getNumberFormat('minute', minutes)}`;
-    }
-    
-    result = `${result ? `${result} ` : ''}${getNumberFormat('second', seconds)}`;
+        parts.push(getNumberFormat('minute', minutes));
+    } 
+    parts.push(getNumberFormat('second', seconds));
 
-    // Normalize and replace spaces (makes testing easier)
-    result = result.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ');
+    // Normalize and replace spaces
+    let result = parts.join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ');
 
     if (isCJKLocale) {
         return result.replace(/\s+/g, '');

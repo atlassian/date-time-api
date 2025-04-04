@@ -179,26 +179,78 @@ export function formatDurationByOptions(options: Intl.DurationFormatOptions, fro
         throw new Error('Please use formatDuration instead');
     }
 
-    const diffInMs = to.getTime() - from.getTime();
-    const diffInSeconds = Math.floor(diffInMs / 1000);
-
-    const days = Math.floor(diffInSeconds / (24 * 60 * 60));
-    const hours = Math.floor((diffInSeconds % (24 * 60 * 60)) / (60 * 60));
-    const minutes = Math.floor((diffInSeconds % (60 * 60)) / 60);
-    const seconds = diffInSeconds % 60;
-
-    const duration = {
-        days,
-        hours,
-        minutes,
-        seconds
-    };
-
-    const formatter = new Intl.DurationFormat(locale, options);
-
-    if (locale.startsWith('zh') || locale.startsWith('ja') || locale.startsWith('ko')) {
-        return formatter.format(duration).replace(/\s+/g, '');
+    // Legacy implementation
+    const getNumberFormat = (unit: string, number: number | bigint) => {
+        return new Intl.NumberFormat(locale, {
+            style: "unit",
+            unit,
+            unitDisplay: options.style === 'long' ? 'long' : 'narrow'
+        }).format(number);
     }
 
-    return formatter.format(duration);
+    const milliseconds = to.getTime() - from.getTime();
+
+    const isCJKLocale = locale.startsWith('zh') || locale.startsWith('ja') || locale.startsWith('ko');
+    // Japanese locale needs to display unit as long, as narrow is wrong, returns english
+    // "narrow" returns english on Chrome 134.0.6998.166 and Firefox 136.0.4, remove this once fixed
+    if (locale === 'ja-JP') {
+        options.style = 'long';
+    }
+
+    const dayInMs = 24 * 60 * 60 * 1000;
+    const hourInMs = 60 * 60 * 1000;
+    const minuteInMs = 60 * 1000;
+    const secondInMs = 1000;
+   
+
+    const days = Math.floor(milliseconds / dayInMs);
+    const hours = Math.floor((milliseconds - days * dayInMs) / hourInMs);
+    const minutes = Math.floor((milliseconds - days * dayInMs - hours * hourInMs) / minuteInMs);
+    const seconds = Math.floor((milliseconds - days * dayInMs - hours * hourInMs - minutes * minuteInMs) / secondInMs);
+
+    // Feature detection for Intl.DurationFormat, not supported in older browsers
+    if ('DurationFormat' in Intl) {
+        try {
+            const duration = {
+                days,
+                hours,
+                minutes,
+                seconds
+            };
+            let durationString = new Intl.DurationFormat(locale, options).format(duration);
+            if (durationString === '') {
+                // Use legacy implementation if Intl.DurationFormat returns empty string (duration less than 1 second)
+                durationString = getNumberFormat('second', seconds);
+            }
+            if (isCJKLocale) {
+                durationString = durationString.normalize('NFD').replace(/\s+/g, '');
+            }
+            return durationString;
+        } catch (error) {
+            console.warn('Intl.DurationFormat failed, falling back to custom implementation', error);
+            // Fall through to legacy implementation
+        }
+    }
+
+    const parts = [];
+    
+    if (days) {
+        parts.push(getNumberFormat('day', days));
+    }
+    if (hours) {
+        parts.push(getNumberFormat('hour', hours));
+    }
+    if (minutes) {
+        parts.push(getNumberFormat('minute', minutes));
+    } 
+    parts.push(getNumberFormat('second', seconds));
+
+    // Normalize and replace spaces
+    let result = parts.join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ');
+
+    if (isCJKLocale) {
+        return result.replace(/\s+/g, '');
+    }
+    
+    return result;
 }

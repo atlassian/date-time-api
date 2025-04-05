@@ -1,6 +1,4 @@
-// todo: remove global.d.ts after this is closed https://github.com/microsoft/TypeScript/issues/60608
-/// <reference path="./global.d.ts" />
-
+import "./global.d.ts";
 import * as dateTime from "./index";
 import dates from "./test-dates.json";
 
@@ -48,6 +46,7 @@ describe("date-time", () => {
       try {
         expect(dateTime.validate(d.numericDate, d.locale)).toBeTruthy();
       } catch (e) {
+        console.error(e);
         throw new Error(
           `Expected: ${d.numericDate} is valid ${d.pattern} in: ${d.locale}`
         );
@@ -66,6 +65,7 @@ describe("date-time", () => {
       try {
         expect(dateTime.getDatePattern(d.locale)).toBe(d.pattern);
       } catch (e) {
+        console.error(e);
         throw new Error(
           `Expected: ${d.pattern} Received: ${dateTime.getDatePattern(
             d.locale
@@ -83,6 +83,7 @@ describe("date-time", () => {
           d.numericDate
         );
       } catch (e) {
+        console.error(e);
         throw new Error(
           `Expected: ${d.numericDate} Received: ${dateTime.formatNumericDate(
             date,
@@ -156,6 +157,7 @@ describe("date-time", () => {
           expect(dateTime.formatDate(date, d.locale)).toStrictEqual(d.cldrDate);
         }
       } catch (e) {
+        console.error(e);
         throw new Error(
           `Expected: ${d.cldrDate} Received: ${dateTime.formatDate(
             date,
@@ -413,6 +415,7 @@ describe("date-time", () => {
           dateTime.formatDuration(fromDate, toDate, d.locale)
         ).toStrictEqual(d.duration);
       } catch (e) {
+        console.error(e);
         throw new Error(
           `Expected: ${d.duration} Received: ${dateTime.formatDuration(
             fromDate,
@@ -437,16 +440,16 @@ describe("date-time", () => {
     describe('formatDurationByOptions', () => {
         const baseDate = new Date('2024-01-01T00:00:00Z');
         const laterDate = new Date('2024-01-02T01:02:03Z');
-        
+
         test('with long style', () => {
-            const options: Intl.DurationFormatOptions = { 
+            const options: Intl.DurationFormatOptions = {
                 style: 'long',
             }
           expect(dateTime.formatDurationByOptions(options, baseDate, laterDate)).toBe('1 day, 1 hour, 2 minutes, 3 seconds');
         });
 
         test('with long style, 0 duration', () => {
-            let options: Intl.DurationFormatOptions = { 
+            let options: Intl.DurationFormatOptions = {
                 style: 'long',
             }
             expect(dateTime.formatDurationByOptions(options, baseDate, baseDate, 'en-US')).toBe('0 seconds');
@@ -460,7 +463,7 @@ describe("date-time", () => {
             } as Intl.DurationFormatOptions;
             expect(dateTime.formatDurationByOptions(options, baseDate, baseDate, 'en-US')).toBe('0m');
         });
-      
+
         test('with different style', () => {
             const options: Intl.DurationFormatOptions = {
                 style: 'narrow',
@@ -507,25 +510,25 @@ describe("date-time", () => {
       });
       describe('formatDurationByOptions fallback', () => {
         const originalDurationFormat = Intl.DurationFormat;
-        
+
         beforeEach(() => {
-          // Mock DurationFormat as undefined using TypeScript type assertions
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (Intl as any).DurationFormat = undefined;
         });
-        
+
         afterEach(() => {
-          // Restore the original implementation
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (Intl as any).DurationFormat = originalDurationFormat;
         });
 
         const baseDate = new Date('2024-01-01T00:00:00Z');
         const laterDate = new Date('2024-01-02T01:02:03Z');
-        
+
         test('with default options', () => {
-          const options: Intl.DurationFormatOptions = { 
+          const options: Intl.DurationFormatOptions = {
             style: 'long',
           };
-          
+
           // This should use the fallback implementation
           const result = dateTime.formatDurationByOptions(options, baseDate, laterDate);
           expect(result).toStrictEqual('1 day 1 hour 2 minutes 3 seconds');
@@ -535,13 +538,13 @@ describe("date-time", () => {
 
         test('throws error with null options', () => {
             expect(() => {
-                // @ts-ignore - Deliberately testing invalid input
+                // @ts-expect-error - Deliberately testing invalid input
                 dateTime.formatDurationByOptions(null, baseDate, laterDate);
             }).toThrow('Please use formatDuration instead');
         });
 
         test('with US locale', () => {
-            let options: Intl.DurationFormatOptions = {
+            const options: Intl.DurationFormatOptions = {
                 style: 'long',
             }
             expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'en-US')).toStrictEqual('1 day 1 hour 2 minutes 3 seconds');
@@ -550,7 +553,7 @@ describe("date-time", () => {
         });
 
         test('with CN locale', () => {
-            let options: Intl.DurationFormatOptions = {
+          const options: Intl.DurationFormatOptions = {
                 style: 'long',
             }
             expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'zh-CN')).toStrictEqual('1天1小时2分钟3秒钟');
@@ -560,13 +563,12 @@ describe("date-time", () => {
 
         test('with JP locale', () => {
             // For Japanese locale, narrow is wrong, returns english, so we override to long in the fallback implementation
-            let options: Intl.DurationFormatOptions = {
+            const options: Intl.DurationFormatOptions = {
                 style: 'long',
             }
             expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'ja-JP')).toStrictEqual('1日1時間2分3秒');
             options.style = 'narrow';
             expect(dateTime.formatDurationByOptions(options, baseDate, laterDate, 'ja-JP')).toStrictEqual('1日1時間2分3秒');
         });
-        
       })
 });

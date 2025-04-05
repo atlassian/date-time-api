@@ -201,7 +201,6 @@ export function formatDurationByOptions(options: Intl.DurationFormatOptions, fro
     const hourInMs = 60 * 60 * 1000;
     const minuteInMs = 60 * 1000;
     const secondInMs = 1000;
-   
 
     const days = Math.floor(milliseconds / dayInMs);
     const hours = Math.floor((milliseconds - days * dayInMs) / hourInMs);
@@ -233,7 +232,7 @@ export function formatDurationByOptions(options: Intl.DurationFormatOptions, fro
     }
 
     const parts = [];
-    
+
     if (days) {
         parts.push(getNumberFormat('day', days));
     }
@@ -242,15 +241,15 @@ export function formatDurationByOptions(options: Intl.DurationFormatOptions, fro
     }
     if (minutes) {
         parts.push(getNumberFormat('minute', minutes));
-    } 
+    }
     parts.push(getNumberFormat('second', seconds));
 
     // Normalize and replace spaces
-    let result = parts.join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ');
+    const result = parts.join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ');
 
     if (isCJKLocale) {
         return result.replace(/\s+/g, '');
     }
-    
+
     return result;
 }

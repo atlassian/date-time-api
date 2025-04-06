@@ -1,3 +1,5 @@
+import { Duration } from "./global";
+
 const getLocale = () => Intl.DateTimeFormat().resolvedOptions().locale;
 const getTimeZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -36,6 +38,7 @@ export function getDatePattern(locale = getLocale()) {
     return pattern;
 }
 
+// todo: remove this and export validateIso8601 and validateByLocale instead
 export function validate(dateString: string, locale = 'sv-SE') {
     if (typeof dateString !== 'string') {
         return false;
@@ -71,13 +74,23 @@ export function validate(dateString: string, locale = 'sv-SE') {
     return parse(`${year}-${month}-${day}`) || false;
 }
 
+export function validateIso8601(dateString: string) {
+    return validate(dateString);
+}
+
+export function validateByLocale(dateString: string, locale = getLocale()) {
+    return validate(dateString, locale);
+}
+
 export function formatPlainDate(date = new Date(), timeZone = getTimeZone()) {
     const [month, day, year] = new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
         timeZone,
-    }).format(date).split('/');
+    })
+        .format(date)
+        .split('/');
 
     return `${year}-${month}-${day}`;
 }
@@ -170,8 +183,62 @@ export function formatDateTimeByOptions(options: Intl.DateTimeFormatOptions, dat
 }
 
 export function formatDuration(from: Date, to = new Date(), locale = getLocale()) {
-    const options: Intl.DurationFormatOptions = { style: 'long' };
+    const options: Intl.DurationFormatOptions = { style: 'short' };
     return formatDurationByOptions(options, from, to, locale);
+}
+
+function isCjLocale(locale = getLocale()) {
+    return locale.startsWith('zh') || locale.startsWith('ja');
+}
+
+function getNumberFormat(number: number, unit: string, unitDisplay: Intl.DurationFormatOptions['style'], locale = getLocale(),) {
+    return new Intl.NumberFormat(locale, {
+        style: 'unit',
+        unit,
+        unitDisplay: unitDisplay === 'digital' ? 'short' : unitDisplay,
+    }).format(number);
+}
+
+/**
+ * todo: this implementation will be replaced by `Temporal.Duration` in future versions of JavaScript.
+ * - Chromium & Edge 138 ❌ (Not supported)
+ * - Safari TP ✅ (Supported)
+ * - Firefox 140 Nightly ✅ (Supported)
+ */
+function getDuration(from: Date, to: Date): Duration {
+    const secondInMs = 1000;
+    const minuteInMs = 60 * secondInMs;
+    const hourInMs = 60 * minuteInMs;
+    const dayInMs = 24 * hourInMs;
+    const diffMs = to.getTime() - from.getTime();
+
+    return {
+        days: Math.floor(diffMs / dayInMs),
+        hours: Math.floor((diffMs % dayInMs) / hourInMs),
+        minutes: Math.floor((diffMs % hourInMs) / minuteInMs),
+        seconds: Math.floor((diffMs % minuteInMs) / secondInMs),
+    };
+}
+
+function formatDurationFallback(duration: Duration, style: Intl.DurationFormatOptions['style'], locale = getLocale()) {
+    const { days, hours, minutes, seconds } = duration;
+    const unitDisplay = style === 'digital' ? 'short' : style;
+    const parts = [];
+
+    if (days) {
+        parts.push(getNumberFormat(days, 'day', unitDisplay, locale));
+    }
+    if (hours) {
+        parts.push(getNumberFormat(hours, 'hour', unitDisplay, locale));
+    }
+    if (minutes) {
+        parts.push(getNumberFormat(minutes, 'minute', unitDisplay, locale));
+    }
+    if (seconds) {
+        parts.push(getNumberFormat(seconds, 'second', unitDisplay, locale));
+    }
+
+    return parts.join(' ');
 }
 
 export function formatDurationByOptions(options: Intl.DurationFormatOptions, from: Date, to = new Date(), locale = getLocale()) {
@@ -179,77 +246,34 @@ export function formatDurationByOptions(options: Intl.DurationFormatOptions, fro
         throw new Error('Please use formatDuration instead');
     }
 
-    // Legacy implementation
-    const getNumberFormat = (unit: string, number: number | bigint) => {
-        return new Intl.NumberFormat(locale, {
-            style: "unit",
-            unit,
-            unitDisplay: options.style === 'long' ? 'long' : 'narrow'
-        }).format(number);
-    }
-
-    const milliseconds = to.getTime() - from.getTime();
-
-    const isCJKLocale = locale.startsWith('zh') || locale.startsWith('ja') || locale.startsWith('ko');
     // Japanese locale needs to display unit as long, as narrow is wrong, returns english
     // "narrow" returns english on Chrome 134.0.6998.166 and Firefox 136.0.4, remove this once fixed
     if (locale === 'ja-JP') {
         options.style = 'long';
     }
 
-    const dayInMs = 24 * 60 * 60 * 1000;
-    const hourInMs = 60 * 60 * 1000;
-    const minuteInMs = 60 * 1000;
-    const secondInMs = 1000;
-
-    const days = Math.floor(milliseconds / dayInMs);
-    const hours = Math.floor((milliseconds - days * dayInMs) / hourInMs);
-    const minutes = Math.floor((milliseconds - days * dayInMs - hours * hourInMs) / minuteInMs);
-    const seconds = Math.floor((milliseconds - days * dayInMs - hours * hourInMs - minutes * minuteInMs) / secondInMs);
+    let durationString = '';
+    const duration = getDuration(from, to);
 
     // Feature detection for Intl.DurationFormat, not supported in older browsers
     if ('DurationFormat' in Intl) {
-        try {
-            const duration = {
-                days,
-                hours,
-                minutes,
-                seconds
-            };
-            let durationString = new Intl.DurationFormat(locale, options).format(duration);
-            if (durationString === '') {
-                // Use legacy implementation if Intl.DurationFormat returns empty string (duration less than 1 second)
-                durationString = getNumberFormat('second', seconds);
-            }
-            if (isCJKLocale) {
-                durationString = durationString.normalize('NFD').replace(/\s+/g, '');
-            }
-            return durationString;
-        } catch (error) {
-            console.warn('Intl.DurationFormat failed, falling back to custom implementation', error);
-            // Fall through to legacy implementation
+        durationString = new Intl.DurationFormat(locale, options).format(duration);
+        if (durationString == '' && duration.seconds !== undefined) {
+            // Use legacy implementation if Intl.DurationFormat returns empty string (duration less than 1 second)
+            // todo: remove this once smallestUnit/largestUnit and hideZeroValued is implemented
+            // tc39/proposal-intl-duration-format#32
+            durationString = getNumberFormat(duration.seconds, 'second', options.style, locale);
         }
+    } else {
+        durationString = formatDurationFallback(duration, options.style, locale);
     }
 
-    const parts = [];
-
-    if (days) {
-        parts.push(getNumberFormat('day', days));
+    // todo: remove CJK overrides once browsers removed wrong spaces. eg, '1 時間 1 秒'
+    // Chrome 134.0.6998.166
+    // Firefox 136.0.4
+    // Safari 18.3.1
+    if (isCjLocale(locale)) {
+        return durationString.replace(/\s+/g, '');
     }
-    if (hours) {
-        parts.push(getNumberFormat('hour', hours));
-    }
-    if (minutes) {
-        parts.push(getNumberFormat('minute', minutes));
-    }
-    parts.push(getNumberFormat('second', seconds));
-
-    // Normalize and replace spaces
-    const result = parts.join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ');
-
-    if (isCJKLocale) {
-        return result.replace(/\s+/g, '');
-    }
-
-    return result;
+    return durationString;
 }

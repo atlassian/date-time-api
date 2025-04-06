@@ -21,7 +21,7 @@ export type Duration = {
 
 type DurationUnits = keyof Duration;
 
-type DurationOptionUnits = {
+export type DurationOptionUnits = {
   [K in DurationUnits as `${K}`]?: "long" | "short" | "narrow";
 } & {
   [K in DurationUnits as `${K}Display`]?: "auto" | "always";

@@ -244,7 +244,10 @@ describe('date-time', () => {
                 '2 min, 2 sec',
             );
             expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 0, 2, 2), 'en-US')).toStrictEqual('2 sec');
-            expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 0, 0, 2), 'en-US')).toStrictEqual('0 sec');
+            expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 0, 0, 0), 'en-US')).toStrictEqual('0 sec');
+            expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 0, 0, 1), 'en-US')).toStrictEqual('0 sec');
+            const longDuration = dateTime.formatDurationByOptions({ style: 'long' }, from, from);
+            expect(longDuration).toStrictEqual('0 seconds');
         });
 
         test('should format negative duration', () => {
@@ -319,37 +322,51 @@ describe('date-time', () => {
             (Intl as any).DurationFormat = originalDurationFormat;
         });
 
-        const from = new Date('2024-01-01T00:00:00Z');
-        const to = new Date('2024-01-02T01:02:03Z');
+        const from = new Date(2000, 0, 0);
+        test('auto hide zero values', () => {
+            expect(dateTime.formatDuration(from, new Date(2000, 0, 1, 1, 1, 1, 1), 'en-US')).toStrictEqual(
+                '1 day 1 hr 1 min 1 sec',
+            );
+            expect(dateTime.formatDuration(from, new Date(2000, 0, 2, 2, 2, 2, 2), 'en-US')).toStrictEqual(
+                '2 days 2 hr 2 min 2 sec',
+            );
+            expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 2, 2, 2, 2), 'en-US')).toStrictEqual(
+                '2 hr 2 min 2 sec',
+            );
+            expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 2, 2, 2), 'en-US')).toStrictEqual(
+                '2 min 2 sec',
+            );
+            expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 0, 2, 2), 'en-US')).toStrictEqual('2 sec');
+        });
 
-        test('0 seconds', () => {
+        test('0 seconds duration', () => {
             const shortDuration = dateTime.formatDuration(from, from);
             expect(shortDuration).toStrictEqual('0 sec');
-
-            const longDuration = dateTime.formatDurationByOptions({ style: 'long' }, from, from);
+            const longDuration = dateTime.formatDurationByOptions({ style: 'long' }, from, from, 'en-US');
             expect(longDuration).toStrictEqual('0 seconds');
         });
 
+        const to = new Date(2000, 0, 1, 2, 3, 4, 5);
         test('formatDuration', () => {
             const result = dateTime.formatDuration(from, to);
             // fallback to Intl.NumberFormat, there are no commas in the string
-            expect(result).toStrictEqual('1 day 1 hr 2 min 3 sec');
+            expect(result).toStrictEqual('1 day 2 hr 3 min 4 sec');
         });
 
         test('with US locale', () => {
             const longDate = dateTime.formatDurationByOptions({ style: 'long' }, from, to, 'en-US');
-            expect(longDate).toStrictEqual('1 day 1 hour 2 minutes 3 seconds');
+            expect(longDate).toStrictEqual('1 day 2 hours 3 minutes 4 seconds');
 
             const narrowDate = dateTime.formatDurationByOptions({ style: 'narrow' }, from, to, 'en-US');
-            expect(narrowDate).toStrictEqual('1d 1h 2m 3s');
+            expect(narrowDate).toStrictEqual('1d 2h 3m 4s');
         });
 
         test('with CN locale', () => {
             const longDuration = dateTime.formatDurationByOptions({ style: 'long' }, from, to, 'zh-CN');
-            expect(longDuration).toStrictEqual('1天1小时2分钟3秒钟');
+            expect(longDuration).toStrictEqual('1天2小时3分钟4秒钟');
 
             const narrowDuration = dateTime.formatDurationByOptions({ style: 'narrow' }, from, to, 'zh-CN');
-            expect(narrowDuration).toStrictEqual('1天1小时2分钟3秒');
+            expect(narrowDuration).toStrictEqual('1天2小时3分钟4秒');
         });
     });
 });

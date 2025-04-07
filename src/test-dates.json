@@ -4,160 +4,206 @@
     "pattern": "dd. mm. yyyy",
     "numericDate": "3. 8. 2004",
     "cldrDate": "3. 8. 2004",
-    "duration": "1 den, 1 hodina, 1 minuta a 1 sekunda"
+    "duration": "1 d. 2 h 3 m 4 s",
+    "narrowDuration": "1 d. 2 h 3 m 4 s",
+    "longDuration": "1 den, 2 hodiny, 3 minuty a 4 sekundy"
   },
   {
     "locale": "da-DK",
     "pattern": "dd.mm.yyyy",
     "numericDate": "3.8.2004",
     "cldrDate": "3. aug. 2004",
-    "duration": "1 dag, 1 time, 1 minut og 1 sekund"
+    "duration": "1 d, 2 t, 3 m og 4 s",
+    "narrowDuration": "1 d, 2 t, 3 m og 4 s",
+    "longDuration": "1 dag, 2 timer, 3 minutter og 4 sekunder"
   },
   {
     "locale": "de-DE",
     "pattern": "dd.mm.yyyy",
     "numericDate": "3.8.2004",
     "cldrDate": "03.08.2004",
-    "duration": "1 Tag, 1 Stunde, 1 Minute und 1 Sekunde"
+    "duration": "1 T, 2 Std., 3 Min. und 4 Sek.",
+    "narrowDuration": "1 T, 2 Std., 3 Min. und 4 Sek.",
+    "longDuration": "1 Tag, 2 Stunden, 3 Minuten und 4 Sekunden"
   },
   {
     "locale": "et-EE",
     "pattern": "dd.mm.yyyy",
     "numericDate": "3.8.2004",
     "cldrDate": "3. aug 2004",
-    "duration": "1 ööpäev, 1 tund, 1 minut, 1 sekund"
+    "duration": "1 p 2 t 3 min 4 s",
+    "narrowDuration": "1 p 2 t 3 min 4 s",
+    "longDuration": "1 ööpäev, 2 tundi, 3 minutit, 4 sekundit"
   },
   {
     "locale": "en-GB",
     "pattern": "dd/mm/yyyy",
     "numericDate": "03/08/2004",
     "cldrDate": "3 Aug 2004",
-    "duration": "1 day, 1 hour, 1 minute, 1 second"
+    "duration": "1d 2h 3m 4s",
+    "narrowDuration": "1d 2h 3m 4s",
+    "longDuration": "1 day, 2 hours, 3 minutes, 4 seconds"
   },
   {
     "locale": "en-US",
     "pattern": "mm/dd/yyyy",
     "numericDate": "8/3/2004",
     "cldrDate": "Aug 3, 2004",
-    "duration": "1 day, 1 hour, 1 minute, 1 second"
+    "duration": "1d 2h 3m 4s",
+    "narrowDuration": "1d 2h 3m 4s",
+    "longDuration": "1 day, 2 hours, 3 minutes, 4 seconds"
   },
   {
     "locale": "es-ES",
     "pattern": "dd/mm/yyyy",
     "numericDate": "3/8/2004",
     "cldrDate": "3 ago 2004",
-    "duration": "1 día, 1 hora, 1 minuto y 1 segundo"
+    "duration": "1d 2h 3min 4s",
+    "narrowDuration": "1d 2h 3min 4s",
+    "longDuration": "1 día, 2 horas, 3 minutos y 4 segundos"
   },
   {
     "locale": "fr-FR",
     "pattern": "dd/mm/yyyy",
     "numericDate": "03/08/2004",
     "cldrDate": "3 août 2004",
-    "duration": "1 jour, 1 heure, 1 minute et 1 seconde"
+    "duration": "1j 2h 3min 4s",
+    "narrowDuration": "1j 2h 3min 4s",
+    "longDuration": "1 jour, 2 heures, 3 minutes et 4 secondes"
   },
   {
     "locale": "is-IS",
     "pattern": "dd.mm.yyyy",
     "numericDate": "3.8.2004",
     "cldrDate": "3. ágú. 2004",
-    "duration": "1 dagur, 1 klukkustund, 1 mínúta og 1 sekúnda"
+    "duration": "1 d. 2 klst. 3 mín. og 4 sek.",
+    "narrowDuration": "1 d. 2 klst. 3 mín. og 4 sek.",
+    "longDuration": "1 dagur, 2 klukkustundir, 3 mínútur og 4 sekúndur"
   },
   {
     "locale": "it-IT",
     "pattern": "dd/mm/yyyy",
     "numericDate": "03/08/2004",
     "cldrDate": "3 ago 2004",
-    "duration": "1 giorno, 1 ora, 1 minuto e 1 secondo"
+    "duration": "1g 2h 3min 4s",
+    "narrowDuration": "1g 2h 3min 4s",
+    "longDuration": "1 giorno, 2 ore, 3 minuti e 4 secondi"
   },
   {
     "locale": "hu-HU",
     "pattern": "yyyy. mm. dd.",
     "numericDate": "2004. 08. 03.",
     "cldrDate": "2004. aug. 3.",
-    "duration": "1 nap, 1 óra, 1 perc és 1 másodperc"
+    "duration": "1 nap, 2 ó, 3 p és 4 mp",
+    "narrowDuration": "1 nap, 2 ó, 3 p és 4 mp",
+    "longDuration": "1 nap, 2 óra, 3 perc és 4 másodperc"
   },
   {
     "locale": "nl-NL",
     "pattern": "dd-mm-yyyy",
     "numericDate": "3-8-2004",
     "cldrDate": "3 aug 2004",
-    "duration": "1 dag, 1 uur, 1 minuut en 1 seconde"
+    "duration": "1 d, 2 u, 3 m, 4 s",
+    "narrowDuration": "1 d, 2 u, 3 m, 4 s",
+    "longDuration": "1 dag, 2 uur, 3 minuten en 4 seconden"
   },
   {
     "locale": "no-NO",
     "pattern": "dd.mm.yyyy",
     "numericDate": "3.8.2004",
     "cldrDate": "3. aug. 2004",
-    "duration": "1 døgn, 1 time, 1 minutt og 1 sekund"
+    "duration": "1d, 2t, 3m, 4s",
+    "narrowDuration": "1d, 2t, 3m, 4s",
+    "longDuration": "1 døgn, 2 timer, 3 minutter og 4 sekunder"
   },
   {
     "locale": "pl-PL",
     "pattern": "dd.mm.yyyy",
     "numericDate": "3.08.2004",
     "cldrDate": "3 sie 2004",
-    "duration": "1 dzień, 1 godzina, 1 minuta i 1 sekunda"
+    "duration": "1 d., 2 h, 3 min i 4 s",
+    "narrowDuration": "1 d., 2 h, 3 min i 4 s",
+    "longDuration": "1 dzień, 2 godziny, 3 minuty i 4 sekundy"
   },
   {
     "locale": "pt-BR",
     "pattern": "dd/mm/yyyy",
     "numericDate": "03/08/2004",
     "cldrDate": "3 de ago. de 2004",
-    "duration": "1 dia, 1 hora, 1 minuto e 1 segundo"
+    "duration": "1 dia 2 h 3 min 4 s",
+    "narrowDuration": "1 dia 2 h 3 min 4 s",
+    "longDuration": "1 dia, 2 horas, 3 minutos e 4 segundos"
   },
   {
     "locale": "ro-RO",
     "pattern": "dd.mm.yyyy",
     "numericDate": "03.08.2004",
     "cldrDate": "3 aug. 2004",
-    "duration": "1 zi, 1 oră, 1 minut, 1 secundă"
+    "duration": "1 z, 2 h, 3 m, 4 s",
+    "narrowDuration": "1 z, 2 h, 3 m, 4 s",
+    "longDuration": "1 zi, 2 ore, 3 minute, 4 secunde"
   },
   {
     "locale": "sk-SK",
     "pattern": "dd. mm. yyyy",
     "numericDate": "3. 8. 2004",
     "cldrDate": "3. 8. 2004",
-    "duration": "1 deň, 1 hodina, 1 minúta, 1 sekunda"
+    "duration": "1 d., 2 h, 3 min, 4 s",
+    "narrowDuration": "1 d., 2 h, 3 min, 4 s",
+    "longDuration": "1 deň, 2 hodiny, 3 minúty, 4 sekundy"
   },
   {
     "locale": "fi-FI",
     "pattern": "dd.mm.yyyy",
     "numericDate": "3.8.2004",
     "cldrDate": "3.8.2004",
-    "duration": "1 päivä, 1 tunti, 1 minuutti ja 1 sekunti"
+    "duration": "1pv 2t 3min 4s",
+    "narrowDuration": "1pv 2t 3min 4s",
+    "longDuration": "1 päivä, 2 tuntia, 3 minuuttia ja 4 sekuntia"
   },
   {
     "locale": "sv-SE",
     "pattern": "yyyy-mm-dd",
     "numericDate": "2004-08-03",
     "cldrDate": "3 aug. 2004",
-    "duration": "1 dygn, 1 timme, 1 minut, 1 sekund"
+    "duration": "1d 2h 3m 4s",
+    "narrowDuration": "1d 2h 3m 4s",
+    "longDuration": "1 dygn, 2 timmar, 3 minuter, 4 sekunder"
   },
   {
     "locale": "ru-RU",
     "pattern": "dd.mm.yyyy",
     "numericDate": "03.08.2004",
     "cldrDate": "3 авг. 2004 г.",
-    "duration": "1 день 1 час 1 минута 1 секунда"
+    "duration": "1 д. 2 ч 3 мин 4 с",
+    "narrowDuration": "1 д. 2 ч 3 мин 4 с",
+    "longDuration": "1 день 2 часа 3 минуты 4 секунды"
   },
   {
     "locale": "zh-CN",
     "pattern": "yyyy/mm/dd",
     "numericDate": "2004/8/3",
     "cldrDate": "2004年8月3日",
-    "duration": "1天1小时1分钟1秒钟"
+    "duration": "1天2小时3分钟4秒",
+    "narrowDuration": "1天2小时3分钟4秒",
+    "longDuration": "1天2小时3分钟4秒钟"
   },
   {
     "locale": "ja-JP",
     "pattern": "yyyy/mm/dd",
     "numericDate": "2004/8/3",
     "cldrDate": "2004/08/03",
-    "duration": "1日1時間1分1秒"
+    "duration": "1日2時間3分4秒",
+    "narrowDuration": "1日2時間3分4秒",
+    "longDuration": "1日2時間3分4秒"
   },
   {
     "locale": "ko-KR",
     "pattern": "yyyy. mm. dd.",
     "numericDate": "2004. 8. 3.",
     "cldrDate": "2004. 8. 3.",
-    "duration": "1일1시간1분1초"
+    "duration": "1일 2시간 3분 4초",
+    "narrowDuration": "1일 2시간 3분 4초",
+    "longDuration": "1일 2시간 3분 4초"
   }
 ]

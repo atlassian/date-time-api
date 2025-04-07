@@ -59,7 +59,7 @@ describe('date-time', () => {
         dates.forEach((d) =>
             test(`should get ${d.locale} date pattern`, () => {
                 expect(dateTime.getDatePattern(d.locale)).toBe(d.pattern);
-            })
+            }),
         );
     });
 
@@ -151,32 +151,32 @@ describe('date-time', () => {
 
         test('should format time by locale and time zone', () => {
             expect(dateTime.formatTime(new Date('2025-09-01T14:05:05Z'), 'en-GB', 'Australia/Sydney')).toStrictEqual(
-                '00:05:05'
+                '00:05:05',
             );
             expect(dateTime.formatTime(new Date('2025-09-01T14:05:05Z'), 'en-US', 'Australia/Sydney')).toStrictEqual(
-                '12:05:05 AM'
+                '12:05:05 AM',
             );
             expect(dateTime.formatTime(new Date('2025-09-01T14:05:05Z'), 'cs-CZ', 'Australia/Sydney')).toStrictEqual(
-                '0:05:05'
+                '0:05:05',
             );
             expect(dateTime.formatTime(new Date('2025-09-01T14:05:05Z'), 'zh-CN', 'Australia/Sydney')).toStrictEqual(
-                '00:05:05'
+                '00:05:05',
             );
         });
 
         test('should format date time by locale', () => {
-            expect(dateTime.formatDateTime(new Date('2025-09-01T14:05:05Z'), 'en-GB', 'Australia/Sydney')).toStrictEqual(
-                '2 Sept 2025, 00:05:05'
-            );
-            expect(dateTime.formatDateTime(new Date('2025-09-01T14:05:05Z'), 'en-US', 'Australia/Sydney')).toStrictEqual(
-                'Sep 2, 2025, 12:05:05 AM'
-            );
-            expect(dateTime.formatDateTime(new Date('2025-09-01T14:05:05Z'), 'cs-CZ', 'Australia/Sydney')).toStrictEqual(
-                '2. 9. 2025 0:05:05'
-            );
-            expect(dateTime.formatDateTime(new Date('2025-09-01T14:05:05Z'), 'zh-CN', 'Australia/Sydney')).toStrictEqual(
-                '2025年9月2日 00:05:05'
-            );
+            expect(
+                dateTime.formatDateTime(new Date('2025-09-01T14:05:05Z'), 'en-GB', 'Australia/Sydney'),
+            ).toStrictEqual('2 Sept 2025, 00:05:05');
+            expect(
+                dateTime.formatDateTime(new Date('2025-09-01T14:05:05Z'), 'en-US', 'Australia/Sydney'),
+            ).toStrictEqual('Sep 2, 2025, 12:05:05 AM');
+            expect(
+                dateTime.formatDateTime(new Date('2025-09-01T14:05:05Z'), 'cs-CZ', 'Australia/Sydney'),
+            ).toStrictEqual('2. 9. 2025 0:05:05');
+            expect(
+                dateTime.formatDateTime(new Date('2025-09-01T14:05:05Z'), 'zh-CN', 'Australia/Sydney'),
+            ).toStrictEqual('2025年9月2日 00:05:05');
         });
 
         test('should format date time by time zone', () => {
@@ -188,42 +188,42 @@ describe('date-time', () => {
 
     describe('formatDateTimeByOptions', () => {
         test('should format date time by options', () => {
-            expect(dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'en-GB')).toStrictEqual(
-                '3 Aug 2004, 04:00'
-            );
-            expect(dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'en-US')).toStrictEqual(
-                'Aug 3, 2004, 4:00 AM'
-            );
-            expect(dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'cs-CZ')).toStrictEqual(
-                '3. 8. 2004 4:00'
-            );
-            expect(dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'is-IS')).toStrictEqual(
-                '3.8.2004, 04:00'
-            );
-            expect(dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'de-DE')).toStrictEqual(
-                '03.08.2004, 04:00'
-            );
-            expect(dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'zh-CN')).toStrictEqual(
-                '2004年8月3日 04:00'
-            );
-            expect(dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'ja-JP')).toStrictEqual(
-                '2004/08/03 4:00'
-            );
-            expect(dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'ko-KR')).toStrictEqual(
-                '2004. 8. 3. 오전 4:00'
-            );
-            expect(dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'fi-FI')).toStrictEqual(
-                '3.8.2004 klo 4.00'
-            );
+            expect(
+                dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'en-GB'),
+            ).toStrictEqual('3 Aug 2004, 04:00');
+            expect(
+                dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'en-US'),
+            ).toStrictEqual('Aug 3, 2004, 4:00 AM');
+            expect(
+                dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'cs-CZ'),
+            ).toStrictEqual('3. 8. 2004 4:00');
+            expect(
+                dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'is-IS'),
+            ).toStrictEqual('3.8.2004, 04:00');
+            expect(
+                dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'de-DE'),
+            ).toStrictEqual('03.08.2004, 04:00');
+            expect(
+                dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'zh-CN'),
+            ).toStrictEqual('2004年8月3日 04:00');
+            expect(
+                dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'ja-JP'),
+            ).toStrictEqual('2004/08/03 4:00');
+            expect(
+                dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'ko-KR'),
+            ).toStrictEqual('2004. 8. 3. 오전 4:00');
+            expect(
+                dateTime.formatDateTimeByOptions({ second: undefined }, new Date(2004, 7, 3, 4), 'fi-FI'),
+            ).toStrictEqual('3.8.2004 klo 4.00');
         });
 
         test('should format date time by options and time zone', () => {
             const date = new Date('2025-09-01T15:05:01Z');
             expect(dateTime.formatDateTimeByOptions({ second: undefined }, date, 'en-GB', 'Asia/Shanghai')).toBe(
-                '1 Sept 2025, 23:05'
+                '1 Sept 2025, 23:05',
             );
             expect(dateTime.formatDateTimeByOptions({ second: undefined }, date, 'en-US', 'Australia/Sydney')).toBe(
-                'Sep 2, 2025, 1:05 AM'
+                'Sep 2, 2025, 1:05 AM',
             );
         });
     });
@@ -232,23 +232,19 @@ describe('date-time', () => {
         const from = new Date(2000, 0, 0);
         test('auto hide zero values', () => {
             expect(dateTime.formatDuration(from, new Date(2000, 0, 1, 1, 1, 1, 1), 'en-US')).toStrictEqual(
-                '1 day, 1 hr, 1 min, 1 sec'
+                '1 day, 1 hr, 1 min, 1 sec',
             );
             expect(dateTime.formatDuration(from, new Date(2000, 0, 2, 2, 2, 2, 2), 'en-US')).toStrictEqual(
-                '2 days, 2 hr, 2 min, 2 sec'
+                '2 days, 2 hr, 2 min, 2 sec',
             );
             expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 2, 2, 2, 2), 'en-US')).toStrictEqual(
-                '2 hr, 2 min, 2 sec'
+                '2 hr, 2 min, 2 sec',
             );
             expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 2, 2, 2), 'en-US')).toStrictEqual(
-                '2 min, 2 sec'
+                '2 min, 2 sec',
             );
-            expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 0, 2, 2), 'en-US')).toStrictEqual(
-                '2 sec'
-            );
-            expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 0, 0, 2), 'en-US')).toStrictEqual(
-                '0 sec'
-            );
+            expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 0, 2, 2), 'en-US')).toStrictEqual('2 sec');
+            expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 0, 0, 2), 'en-US')).toStrictEqual('0 sec');
         });
 
         test('should format negative duration', () => {
@@ -301,11 +297,11 @@ describe('date-time', () => {
 
         test('Japanese style override', () => {
             // For Japanese locale, short and narrow return wrong in English. Override to use long instead.
-            const shortDate = dateTime.formatDuration(from, to, 'ja-JP')
+            const shortDate = dateTime.formatDuration(from, to, 'ja-JP');
             expect(shortDate).toStrictEqual('1日2時間3分4秒');
-            const longDate = dateTime.formatDurationByOptions({style: 'long'}, from, to, 'ja-JP')
+            const longDate = dateTime.formatDurationByOptions({ style: 'long' }, from, to, 'ja-JP');
             expect(longDate).toStrictEqual('1日2時間3分4秒');
-            const narrowDate = dateTime.formatDurationByOptions({style: 'narrow' }, from, to, 'ja-JP')
+            const narrowDate = dateTime.formatDurationByOptions({ style: 'narrow' }, from, to, 'ja-JP');
             expect(narrowDate).toStrictEqual('1日2時間3分4秒');
         });
     });
@@ -314,13 +310,13 @@ describe('date-time', () => {
         const originalDurationFormat = Intl.DurationFormat;
 
         beforeAll(() => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          delete (Intl as any).DurationFormat;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            delete (Intl as any).DurationFormat;
         });
 
         afterAll(() => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (Intl as any).DurationFormat = originalDurationFormat;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (Intl as any).DurationFormat = originalDurationFormat;
         });
 
         const from = new Date('2024-01-01T00:00:00Z');
@@ -333,19 +329,19 @@ describe('date-time', () => {
         });
 
         test('with US locale', () => {
-            const longDate = dateTime.formatDurationByOptions({style: 'long' }, from, to, 'en-US')
+            const longDate = dateTime.formatDurationByOptions({ style: 'long' }, from, to, 'en-US');
             expect(longDate).toStrictEqual('1 day 1 hour 2 minutes 3 seconds');
 
-            const narrowDate = dateTime.formatDurationByOptions({style: 'narrow' }, from, to, 'en-US')
+            const narrowDate = dateTime.formatDurationByOptions({ style: 'narrow' }, from, to, 'en-US');
             expect(narrowDate).toStrictEqual('1d 1h 2m 3s');
         });
 
         test('with CN locale', () => {
-            const longDuration = dateTime.formatDurationByOptions({style: 'long'}, from, to, 'zh-CN');
+            const longDuration = dateTime.formatDurationByOptions({ style: 'long' }, from, to, 'zh-CN');
             expect(longDuration).toStrictEqual('1天1小时2分钟3秒钟');
 
-            const narrowDuration = dateTime.formatDurationByOptions({style: 'narrow' }, from, to, 'zh-CN');
+            const narrowDuration = dateTime.formatDurationByOptions({ style: 'narrow' }, from, to, 'zh-CN');
             expect(narrowDuration).toStrictEqual('1天1小时2分钟3秒');
         });
-    })
+    });
 });

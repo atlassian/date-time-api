@@ -1,4 +1,4 @@
-import { Duration } from "./global";
+import { Duration } from './global';
 
 const getLocale = () => Intl.DateTimeFormat().resolvedOptions().locale;
 const getTimeZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -168,7 +168,12 @@ export function formatDateTime(date = new Date(), locale = getLocale(), timeZone
     }).format(date);
 }
 
-export function formatDateTimeByOptions(options: Intl.DateTimeFormatOptions, date = new Date(), locale = getLocale(), timeZone = getTimeZone()) {
+export function formatDateTimeByOptions(
+    options: Intl.DateTimeFormatOptions,
+    date = new Date(),
+    locale = getLocale(),
+    timeZone = getTimeZone(),
+) {
     if (!options) {
         throw new Error('Please use formatDateTime instead');
     }
@@ -191,7 +196,12 @@ function isCjLocale(locale = getLocale()) {
     return locale.startsWith('zh') || locale.startsWith('ja');
 }
 
-function getNumberFormat(number: number, unit: string, unitDisplay: Intl.DurationFormatOptions['style'], locale = getLocale(),) {
+function getNumberFormat(
+    number: number,
+    unit: string,
+    unitDisplay: Intl.DurationFormatOptions['style'],
+    locale = getLocale(),
+) {
     return new Intl.NumberFormat(locale, {
         style: 'unit',
         unit,
@@ -241,7 +251,12 @@ function formatDurationFallback(duration: Duration, style: Intl.DurationFormatOp
     return parts.join(' ');
 }
 
-export function formatDurationByOptions(options: Intl.DurationFormatOptions, from: Date, to = new Date(), locale = getLocale()) {
+export function formatDurationByOptions(
+    options: Intl.DurationFormatOptions,
+    from: Date,
+    to = new Date(),
+    locale = getLocale(),
+) {
     if (!options) {
         throw new Error('Please use formatDuration instead');
     }

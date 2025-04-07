@@ -9,18 +9,18 @@ The Date Time API is a comprehensive library designed to simplify date and time 
 ## Usage
 
 ```javascript
-import * as dateTime from '@atlassian/date-time';
+import * as dateTime from "@atlassian/date-time";
 
 // Parse a date string
-const date = dateTime.parse('2024-01-01');
+const date = dateTime.parse("2024-01-01");
 console.log(date); // Outputs: "Mon Jan 01 2024 00:00:00 GMT+0000 (Coordinated Universal Time)"
 
 // Get date pattern
-const pattern = dateTime.getDatePattern('en-US');
+const pattern = dateTime.getDatePattern("en-US");
 console.log(pattern); // Outputs: "mm/dd/yyyy"
 
 // Validate a date string
-const isValid = dateTime.validate('2024-01-01');
+const isValid = dateTime.validate("2024-01-01");
 console.log(isValid); // Outputs: true
 
 // Format a plain date
@@ -36,36 +36,31 @@ const plainDateTime = dateTime.formatPlainDateTime(new Date());
 console.log(plainDateTime); // Outputs: "2024-01-01T12:00:00"
 
 // Format a numeric date
-const numericDate = dateTime.formatNumericDate(new Date(), 'en-US');
+const numericDate = dateTime.formatNumericDate(new Date(), "en-US");
 console.log(numericDate); // Outputs: "1/1/2024"
 
 // Format a date
-const formattedDate = dateTime.formatDate(new Date(), 'en-US');
+const formattedDate = dateTime.formatDate(new Date(), "en-US");
 console.log(formattedDate); // Outputs: "Jan 1, 2024"
 
 // Format a time
-const formattedTime = dateTime.formatTime(new Date(), 'en-US');
+const formattedTime = dateTime.formatTime(new Date(), "en-US");
 console.log(formattedTime); // Outputs: "12:00:00 PM"
 
 // Format a date-time
-const formattedDateTime = dateTime.formatDateTime(new Date(), 'en-US');
+const formattedDateTime = dateTime.formatDateTime(new Date(), "en-US");
 console.log(formattedDateTime); // Outputs: "Jan 1, 2024, 12:00:00 PM"
 
 // Format a date-time with options
-const formattedDateTimeWithOptions = dateTime.formatDateTimeByOptions({ second: undefined }, new Date(), 'en-US');
+const formattedDateTimeWithOptions = dateTime.formatDateTimeByOptions({ second: undefined }, new Date(), "en-US");
 console.log(formattedDateTimeWithOptions); // Outputs: "Jan 1, 2024, 12:00 PM"
 
 // Format a duration
-const duration = dateTime.formatDuration(new Date(2024, 0, 1), new Date(2024, 0, 2), 'en-US');
+const duration = dateTime.formatDuration(new Date(2024, 0, 1), new Date(2024, 0, 2), "en-US");
 console.log(duration); // Outputs: "1 day 1 hour 1 minute 1 second"
 
 // Format a duration with custom options
-const durationWithOptions = dateTime.formatDurationByOptions(
-  { unitDisplay: 'narrow' }, 
-  new Date(2024, 0, 1), 
-  new Date(2024, 0, 2), 
-  'en-US'
-);
+const durationWithOptions = dateTime.formatDurationByOptions({ unitDisplay: "narrow" }, new Date(2024, 0, 1), new Date(2024, 0, 2), "en-US");
 console.log(durationWithOptions); // Outputs: "1d 1h 1m 1s"
 ```
 

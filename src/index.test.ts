@@ -322,6 +322,14 @@ describe('date-time', () => {
         const from = new Date('2024-01-01T00:00:00Z');
         const to = new Date('2024-01-02T01:02:03Z');
 
+        test('0 seconds', () => {
+            const shortDuration = dateTime.formatDuration(from, from);
+            expect(shortDuration).toStrictEqual('0 sec');
+
+            const longDuration = dateTime.formatDurationByOptions({ style: 'long' }, from, from);
+            expect(longDuration).toStrictEqual('0 seconds');
+        });
+
         test('formatDuration', () => {
             const result = dateTime.formatDuration(from, to);
             // fallback to Intl.NumberFormat, there are no commas in the string

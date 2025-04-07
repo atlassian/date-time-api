@@ -273,14 +273,15 @@ export function formatDurationByOptions(
     // Feature detection for Intl.DurationFormat, not supported in older browsers
     if ('DurationFormat' in Intl) {
         durationString = new Intl.DurationFormat(locale, options).format(duration);
-        if (durationString == '' && duration.seconds !== undefined) {
-            // Use legacy implementation if Intl.DurationFormat returns empty string (duration less than 1 second)
-            // todo: remove this once smallestUnit/largestUnit and hideZeroValued is implemented
-            // tc39/proposal-intl-duration-format#32
-            durationString = getNumberFormat(duration.seconds, 'second', options.style, locale);
-        }
     } else {
         durationString = formatDurationFallback(duration, options.style, locale);
+    }
+
+    if (durationString == '' && duration.seconds !== undefined) {
+        // Use legacy implementation if Intl.DurationFormat returns empty string (duration less than 1 second)
+        // todo: remove this once smallestUnit/largestUnit and hideZeroValued is implemented
+        // tc39/proposal-intl-duration-format#32
+        durationString = getNumberFormat(duration.seconds, 'second', options.style, locale);
     }
 
     // todo: remove CJK overrides once browsers removed wrong spaces. eg, '1 時間 1 秒'

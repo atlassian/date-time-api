@@ -6,7 +6,7 @@
     "outDir": "dist/types",
     "skipLibCheck": true,
     "strict": true,
-    "target": "ESNext",
+    "target": "ESNext"
   },
   "include": ["src"],
   "exclude": ["**/*.test.ts", "**/__tests__"]

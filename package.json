@@ -22,7 +22,8 @@
     "test:tsc": "tsc --noEmit",
     "test:prettier": "prettier --check .",
     "test:lint": "eslint .",
-    "test:jest": "jest"
+    "test:jest": "jest",
+    "prepublishOnly": "npm run test && npm run build"
   },
   "repository": {
     "type": "git",

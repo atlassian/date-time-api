@@ -337,6 +337,8 @@ describe('date-time', () => {
                 '2 min 2 sec',
             );
             expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 0, 2, 2), 'en-US')).toStrictEqual('2 sec');
+            expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 0, 0, 0), 'en-US')).toStrictEqual('0 sec');
+            expect(dateTime.formatDuration(from, new Date(2000, 0, 0, 0, 0, 0, 1), 'en-US')).toStrictEqual('0 sec');
         });
 
         test('0 seconds duration', () => {

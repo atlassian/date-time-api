@@ -1,6 +1,6 @@
 {
   "name": "@atlassian/date-time",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Atlassian Frontend Date Time API ",
   "main": "dist/bundle.cjs",
   "module": "dist/bundle.mjs",

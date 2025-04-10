@@ -23,6 +23,41 @@ export function parse(input: string | number | Date): Date | null {
     return dateParsed.getDate() === day ? dateParsed : null;
 }
 
+export function parseByLocale(dateString: string, locale = 'sv-SE'): Date | null {
+    if (typeof dateString !== 'string') {
+        return null;
+    }
+    const dateNumbers = dateString.match(/\d+/g);
+    if (!dateNumbers || dateNumbers.length < 3) {
+        return null;
+    }
+    const dateLetters = getDatePattern(locale).match(/[dmy]+/g);
+    if (!dateLetters || dateLetters.length < 3) {
+        return null;
+    }
+    let year;
+    let month;
+    let day;
+    dateLetters.forEach((d, index) => {
+        if (dateLetters.includes('m')) {
+            year = dateNumbers[index];
+        }
+        switch (d) {
+            case 'mm':
+                month = dateNumbers[index];
+                break;
+            case 'dd':
+                day = dateNumbers[index];
+                break;
+            default:
+                year = dateNumbers[index];
+                break;
+        }
+    });
+
+    return parse(`${year}-${month}-${day}`) || null;
+}
+
 export function getDatePattern(locale = getLocale()) {
     const formatterInput = new Intl.DateTimeFormat(locale);
     let pattern = '';
@@ -38,8 +73,9 @@ export function getDatePattern(locale = getLocale()) {
     return pattern;
 }
 
-// todo: remove this and export validateIso8601 and validateByLocale instead
-export function validate(dateString: string, locale = 'sv-SE') {
+// todo: remove this
+export function validate(dateString: string, locale = 'sv-SE'): Date | boolean {
+    console.warn('deprecated. use parse() or parseByLocale() instead.');
     if (typeof dateString !== 'string') {
         return false;
     }
@@ -72,14 +108,6 @@ export function validate(dateString: string, locale = 'sv-SE') {
     });
 
     return parse(`${year}-${month}-${day}`) || false;
-}
-
-export function validateIso8601(dateString: string) {
-    return validate(dateString);
-}
-
-export function validateByLocale(dateString: string, locale = getLocale()) {
-    return validate(dateString, locale);
 }
 
 export function formatPlainDate(date = new Date(), timeZone = getTimeZone()) {

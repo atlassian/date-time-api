@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "declaration": true,
     "esModuleInterop": true,
-    "outDir": "dist/types",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext"
   },
   "include": ["src"],
-  "exclude": ["**/*.test.ts", "**/__tests__"]
+  "exclude": ["**/*.test.ts"]
 }

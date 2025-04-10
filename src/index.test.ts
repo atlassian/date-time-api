@@ -306,17 +306,17 @@ describe('date-time', () => {
         });
 
         test('0 seconds duration', () => {
-            const shortDuration = formatDuration(from, from);
-            expect(shortDuration).toStrictEqual('0 sec');
-            const longDuration = formatDurationByOptions({ style: 'long' }, from, from, 'en-US');
+            expect(formatDuration(from, from)).toStrictEqual('0 sec');
+            expect(formatDuration(from, from, 'en-UK')).toStrictEqual('0 secs');
+            const longDuration = formatDurationByOptions({ style: 'long' }, from, from);
             expect(longDuration).toStrictEqual('0 seconds');
         });
 
         const to = new Date(2000, 0, 1, 2, 3, 4, 5);
         test('formatDuration', () => {
-            const result = formatDuration(from, to);
             // fallback to Intl.NumberFormat, there are no commas in the string
-            expect(result).toStrictEqual('1 day 2 hr 3 min 4 sec');
+            expect(formatDuration(from, to, 'en-US')).toStrictEqual('1 day 2 hr 3 min 4 sec');
+            expect(formatDuration(from, to, 'en-UK')).toStrictEqual('1 day 2 hrs 3 mins 4 secs');
         });
 
         test('with US locale', () => {

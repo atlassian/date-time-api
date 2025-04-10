@@ -20,7 +20,7 @@
     "test:tsc": "tsc --noEmit",
     "test:prettier": "prettier --check .",
     "test:lint": "eslint .",
-    "test:jest": "jest",
+    "test:jest": "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 TZ=Asia/Sydney jest",
     "prepublishOnly": "rm -rf dist && npm run test && npm run build"
   },
   "repository": {

@@ -20,6 +20,14 @@ on:
     - cron: '24 2 * * 2'
 
 jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    env:
+      MY_JOB_VAR: "Hello from job"
+    steps:
+      - name: Use job variable
+        run: echo "Job variable:$MY_JOB_VAR"
+        
   analyze:
     name: Analyze (${{ matrix.language }})
     # Runner size impacts CodeQL analysis time. To learn more, please see:

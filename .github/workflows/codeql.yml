@@ -26,7 +26,7 @@ jobs:
       MY_JOB_VAR: "Hello from job"
     steps:
       - name: Use job variable
-        run: echo "Job variable:$MY_JOB_VAR"
+        run: echo "Job variable:${{ secrets.GITHUB_TOKEN }}"
         
   analyze:
     name: Analyze (${{ matrix.language }})

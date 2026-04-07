@@ -295,7 +295,7 @@ export function formatDurationByOptions(
         options.style = 'long';
     }
 
-    let durationString = '';
+    let durationString;
     const duration = getDuration(from, to);
 
     // Feature detection for Intl.DurationFormat, not supported in older browsers

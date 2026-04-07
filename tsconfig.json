@@ -2,14 +2,16 @@
   "compilerOptions": {
     "declaration": true,
     "esModuleInterop": true,
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "esnext",
+    "noEmit": true,
     "outDir": "dist",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ESNext"
+    "target": "esnext",
+    "moduleResolution": "bundler",
+    "types": ["jest"]
   },
-  "include": ["src"],
-  "exclude": ["**/*.test.ts"]
+  "exclude": ["**/*.test.ts"],
+  "include": ["src"]
 }

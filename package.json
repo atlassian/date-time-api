@@ -10,18 +10,16 @@
     "import": "./dist/bundle.mjs"
   },
   "scripts": {
-    "build": "npm run build:tsc && npm run build:webpack",
-    "build:tsc": "tsc --project tsconfig.json",
-    "build:webpack": "webpack",
-    "format": "npm run format:lint && npm run format:prettier",
-    "format:lint": "eslint --fix .",
-    "format:prettier": "prettier --write .",
-    "test": "npm run test:tsc && npm run test:lint && npm run test:jest -- --coverage",
-    "test:tsc": "tsc --noEmit",
-    "test:prettier": "prettier --check .",
-    "test:lint": "eslint .",
-    "test:jest": "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 TZ=Asia/Sydney jest",
-    "prepublishOnly": "rm -rf dist && npm run test && npm run build"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint && prettier --check .",
+    "format": "eslint --fix && prettier --write .",
+    "test": "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 TZ=Asia/Sydney jest",
+    "test:coverage": "npm run test -- --coverage",
+    "checks": "npm run typecheck && npm run lint && npm run test:coverage",
+    "build": "npm run build:types && npm run build:bundle",
+    "build:types": "tsc --project tsconfig.json",
+    "build:bundle": "webpack",
+    "prepublishOnly": "rm -rf dist && npm run checks && npm run build"
   },
   "repository": {
     "type": "git",

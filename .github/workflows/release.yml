@@ -1,40 +1,58 @@
-name: Publish on Push
+name: Release
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version bump type"
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       id-token: write
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v6
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Test project
-        run: npm t
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Build project
-        run: npm run build
+      - name: Bump version
+        id: bump
+        run: |
+          npm version ${{ inputs.version }} -m "chore: release v%s"
+          echo "version=$(node -p 'require("./package.json").version')" >> "$GITHUB_OUTPUT"
+
+      - name: Push version commit and tag
+        run: git push --follow-tags
+
+      - name: Get Artifact Publish Token
+        uses: atlassian-labs/artifact-publish-token@v1.0.1
+        with:
+          output-modes: npm
 
       - name: Publish to npm
-        run: |
-          echo "registry=https://packages.atlassian.com/api/npm/npm-public/" >> ~/.npmrc
-          echo "@atlassian:registry=https://packages.atlassian.com/api/npm/npm-public/" >> ~/.npmrc
-          echo "//packages.atlassian.com/api/npm/npm-public/:username=${{ secrets.NPM_USERNAME }}" >> ~/.npmrc
-          echo "//packages.atlassian.com/api/npm/npm-public/:_password=${{ secrets.NPM_PASSWORD }}" >> ~/.npmrc
-          echo "//packages.atlassian.com/api/npm/npm-public/:email=zxu2@atlassian.com" >> ~/.npmrc
+        run: npm publish --userconfig .npmrc-public
 
-          npm publish
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "v${{ steps.bump.outputs.version }}" --generate-notes

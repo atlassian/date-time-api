@@ -197,7 +197,7 @@ describe('date-time', () => {
             expect(formatDateTimeByOptions(option, new Date(2004, 7, 3, 4), 'de-DE')).toBe('03.08.2004, 04:00');
             expect(formatDateTimeByOptions(option, new Date(2004, 7, 3, 4), 'zh-CN')).toBe('2004年8月3日 04:00');
             expect(formatDateTimeByOptions(option, new Date(2004, 7, 3, 4), 'ja-JP')).toBe('2004/08/03 4:00');
-            expect(formatDateTimeByOptions(option, new Date(2004, 7, 3, 4), 'ko-KR')).toBe('2004. 8. 3. 오전 4:00');
+            expect(formatDateTimeByOptions(option, new Date(2004, 7, 3, 4), 'ko-KR')).toBe('2004. 8. 3. AM 4:00');
             expect(formatDateTimeByOptions(option, new Date(2004, 7, 3, 4), 'fi-FI')).toBe('3.8.2004 klo 4.00');
         });
 

@@ -1,16 +1,9 @@
 name: Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: "Version bump type"
-        required: true
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
+  push:
+    tags:
+      - "v*"
 
 jobs:
   release:
@@ -30,20 +23,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Configure git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Bump version
-        id: bump
-        run: |
-          npm version ${{ inputs.version }} -m "chore: release v%s"
-          echo "version=$(node -p 'require("./package.json").version')" >> "$GITHUB_OUTPUT"
-
-      - name: Push version commit and tag
-        run: git push --follow-tags
-
       - name: Get Artifact Publish Token
         uses: atlassian-labs/artifact-publish-token@v1.0.1
         with:
@@ -55,4 +34,4 @@ jobs:
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "v${{ steps.bump.outputs.version }}" --generate-notes
+        run: gh release create "${{ github.ref_name }}" --generate-notes

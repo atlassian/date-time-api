@@ -1,13 +1,19 @@
 {
   "name": "@atlassian/date-time",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Atlassian Frontend Date Time API ",
   "main": "dist/bundle.cjs",
   "module": "dist/bundle.mjs",
   "types": "dist/index.d.ts",
   "exports": {
-    "require": "./dist/bundle.cjs",
-    "import": "./dist/bundle.mjs"
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/bundle.cjs"
+    },
+    "import": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/bundle.mjs"
+    }
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -15,7 +21,7 @@
     "format": "eslint --fix && prettier --write .",
     "test": "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 TZ=Asia/Sydney jest",
     "test:coverage": "npm run test -- --coverage",
-    "checks": "npm run typecheck && npm run lint && npm run test:coverage",
+    "checks": "npm run typecheck && npm run lint && npm run test && npm run build",
     "build": "npm run build:types && npm run build:bundle",
     "build:types": "tsc --project tsconfig.json",
     "build:bundle": "webpack",
@@ -37,15 +43,16 @@
   },
   "homepage": "https://github.com/atlassian/date-time-api#readme",
   "devDependencies": {
-    "@eslint/js": "^9.39.4",
+    "@eslint/js": "^10.0.1",
     "@types/jest": "^30.0.0",
-    "eslint": "^9.39.4",
-    "globals": "^16.5.0",
+    "@types/node": "^25.5.2",
+    "eslint": "^10.2.0",
+    "globals": "^17.4.0",
     "jest": "^30.3.0",
     "prettier": "3.8.1",
     "ts-jest": "^29.4.9",
     "ts-loader": "^9.5.7",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "typescript-eslint": "^8.58.0",
     "webpack": "^5.105.4",
     "webpack-cli": "^7.0.2"

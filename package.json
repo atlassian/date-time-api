@@ -19,13 +19,14 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint && prettier --check .",
     "format": "eslint --fix && prettier --write .",
+    "pretest": "npm run build",
     "test": "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 TZ=Asia/Sydney jest",
     "test:coverage": "npm run test -- --coverage",
-    "checks": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "checks": "npm run typecheck && npm run lint && npm run test",
     "build": "npm run build:types && npm run build:bundle",
     "build:types": "tsc --project tsconfig.json",
     "build:bundle": "webpack",
-    "prepublishOnly": "rm -rf dist && npm run checks && npm run build"
+    "prepublishOnly": "rm -rf dist && npm run checks"
   },
   "repository": {
     "type": "git",

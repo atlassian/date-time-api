@@ -10,7 +10,7 @@
     "strict": true,
     "target": "esnext",
     "moduleResolution": "bundler",
-    "types": ["jest"]
+    "types": ["jest", "node"]
   },
   "exclude": ["**/*.test.ts"],
   "include": ["src"]

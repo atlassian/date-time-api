@@ -6,8 +6,14 @@
   "module": "dist/bundle.mjs",
   "types": "dist/index.d.ts",
   "exports": {
-    "require": "./dist/bundle.cjs",
-    "import": "./dist/bundle.mjs"
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/bundle.cjs"
+    },
+    "import": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/bundle.mjs"
+    }
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -15,7 +21,7 @@
     "format": "eslint --fix && prettier --write .",
     "test": "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 TZ=Asia/Sydney jest",
     "test:coverage": "npm run test -- --coverage",
-    "checks": "npm run typecheck && npm run lint && npm run test:coverage",
+    "checks": "npm run typecheck && npm run lint && npm run test && npm run build",
     "build": "npm run build:types && npm run build:bundle",
     "build:types": "tsc --project tsconfig.json",
     "build:bundle": "webpack",
@@ -39,6 +45,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.2",
     "eslint": "^10.2.0",
     "globals": "^17.4.0",
     "jest": "^30.3.0",

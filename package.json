@@ -11,7 +11,7 @@
       "default": "./dist/bundle.cjs"
     },
     "import": {
-      "types": "./dist/index.d.mts",
+      "types": "./dist/index.d.ts",
       "default": "./dist/bundle.mjs"
     }
   },

@@ -1,0 +1,14 @@
+src/
+coverage/
+.atlassian/
+.github/
+.editorconfig
+.npmrc-public
+.nvmrc
+eslint.config.mjs
+jest.config.js
+renovate.json
+tsconfig.json
+webpack.config.mjs
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md

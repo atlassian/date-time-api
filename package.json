@@ -39,6 +39,15 @@
   ],
   "author": "Zac Xu",
   "license": "Apache-2.0",
+  "files": [
+    "dist/bundle.cjs",
+    "dist/bundle.mjs",
+    "dist/bundle.amd.js",
+    "dist/bundle.global.js",
+    "dist/index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
   "bugs": {
     "url": "https://github.com/atlassian/date-time-api/issues"
   },

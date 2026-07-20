@@ -124,7 +124,7 @@ export function formatPlainDate(date = new Date(), timeZone = getTimeZone()) {
 }
 
 export function formatPlainTime(date = new Date(), timeZone = getTimeZone()) {
-    const timeZonedDate = new Date(date.toLocaleString(undefined, { timeZone }));
+    const timeZonedDate = new Date(date.toLocaleString('en-US', { timeZone }));
     const hours = timeZonedDate.getHours().toString().padStart(2, '0');
     const minutes = timeZonedDate.getMinutes().toString().padStart(2, '0');
     const seconds = timeZonedDate.getSeconds().toString().padStart(2, '0');

@@ -1,6 +1,6 @@
 {
   "name": "@atlassian/date-time",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Atlassian Frontend Date Time API ",
   "main": "dist/bundle.cjs",
   "module": "dist/bundle.mjs",
@@ -20,8 +20,10 @@
     "lint": "eslint && prettier --check .",
     "format": "eslint --fix && prettier --write .",
     "pretest": "npm run build",
-    "test": "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 TZ=Asia/Sydney jest",
-    "test:coverage": "npm run test -- --coverage",
+    "test": "npm run test:en-US && npm run test:en-GB",
+    "test:en-US": "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 TZ=Asia/Sydney jest",
+    "test:en-GB": "LANG=en_GB.UTF-8 LC_ALL=en_GB.UTF-8 TZ=Asia/Sydney jest",
+    "test:coverage": "npm run build && npm run test:en-US && npm run test:en-GB -- --coverage",
     "checks": "npm run typecheck && npm run lint && npm run test",
     "build": "npm run build:types && npm run build:bundle",
     "build:types": "tsc --project tsconfig.json",
@@ -39,6 +41,15 @@
   ],
   "author": "Zac Xu",
   "license": "Apache-2.0",
+  "files": [
+    "dist/bundle.cjs",
+    "dist/bundle.mjs",
+    "dist/bundle.amd.js",
+    "dist/bundle.global.js",
+    "dist/index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
   "bugs": {
     "url": "https://github.com/atlassian/date-time-api/issues"
   },
@@ -46,17 +57,17 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.5.2",
-    "eslint": "^10.2.0",
-    "globals": "^17.4.0",
-    "jest": "^30.3.0",
-    "prettier": "3.8.1",
-    "ts-jest": "^29.4.9",
-    "ts-loader": "^9.5.7",
-    "typescript": "^6.0.2",
-    "typescript-eslint": "^8.58.0",
-    "webpack": "^5.105.4",
-    "webpack-cli": "^7.0.2"
+    "@types/node": "^26.1.1",
+    "eslint": "^10.7.0",
+    "globals": "^17.7.0",
+    "jest": "^30.4.2",
+    "prettier": "3.9.5",
+    "ts-jest": "^29.4.11",
+    "ts-loader": "^9.6.2",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.64.0",
+    "webpack": "^5.108.4",
+    "webpack-cli": "^7.2.1"
   },
   "publishConfig": {
     "registry": "https://packages.atlassian.com/api/npm/npm-public/"

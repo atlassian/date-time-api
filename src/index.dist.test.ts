@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { execSync } from 'child_process';
 
 const EXPECTED_EXPORTS = [
     'parse',
@@ -17,8 +17,27 @@ const EXPECTED_EXPORTS = [
     'formatDurationByOptions',
 ];
 
+const EXPECTED_PACK_FILES = [
+    'LICENSE',
+    'README.md',
+    'dist/bundle.amd.js',
+    'dist/bundle.cjs',
+    'dist/bundle.global.js',
+    'dist/bundle.mjs',
+    'dist/index.d.ts',
+    'package.json',
+];
+
+const EXPECTED_NON_EMPTY_DIST_PACK_FILES = [
+    'dist/bundle.amd.js',
+    'dist/bundle.cjs',
+    'dist/bundle.global.js',
+    'dist/bundle.mjs',
+    'dist/index.d.ts',
+];
+
 describe('dist bundle smoke tests', () => {
-    test('CJS exports all APIs as functions', () => {
+    test('exports all APIs as functions', () => {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const dateTimeCjs = require('../dist/bundle.cjs');
 
@@ -27,15 +46,21 @@ describe('dist bundle smoke tests', () => {
         });
     });
 
-    test('ESM bundle exists and is non-empty', () => {
-        expect(fs.statSync('./dist/bundle.mjs').size).toBeGreaterThan(0);
-    });
+    test('npm pack dry run matches published file whitelist exactly', () => {
+        const output = execSync('npm pack --dry-run --json', { encoding: 'utf8' });
+        const [packResult] = JSON.parse(output) as {
+            files: Array<{ path: string; size: number }>;
+        }[];
+        const actualPackFiles = packResult.files.map((file) => file.path).sort();
+        const distPackFiles = packResult.files.filter((file) => EXPECTED_NON_EMPTY_DIST_PACK_FILES.includes(file.path));
 
-    test('AMD bundle exists and is non-empty', () => {
-        expect(fs.statSync('./dist/bundle.amd.js').size).toBeGreaterThan(0);
-    });
+        expect(actualPackFiles).toEqual(EXPECTED_PACK_FILES.slice().sort());
+        expect(distPackFiles.map((file) => file.path).sort()).toEqual(
+            EXPECTED_NON_EMPTY_DIST_PACK_FILES.slice().sort(),
+        );
 
-    test('Global bundle exists and is non-empty', () => {
-        expect(fs.statSync('./dist/bundle.global.js').size).toBeGreaterThan(0);
+        distPackFiles.forEach((file) => {
+            expect(file.size).toBeGreaterThan(0);
+        });
     });
 });

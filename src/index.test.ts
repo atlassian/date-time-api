@@ -100,6 +100,12 @@ describe('date-time', () => {
             expect(formatPlainDateTime(date, 'Asia/Shanghai')).toBe('2025-09-01T23:05:01');
             expect(formatPlainDateTime(date, 'Australia/Sydney')).toBe('2025-09-02T01:05:01');
         });
+
+        test('should format plain time for a date whose day is greater than 12', () => {
+            const date = new Date('2026-07-22T00:00:00+10:00');
+            expect(formatPlainTime(date, 'Australia/Sydney')).toBe('00:00:00');
+            expect(formatPlainDateTime(date, 'Australia/Sydney')).toBe('2026-07-22T00:00:00');
+        });
     });
 
     describe('getDatePattern', () => {
@@ -306,7 +312,8 @@ describe('date-time', () => {
         });
 
         test('0 seconds duration', () => {
-            expect(formatDuration(from, from)).toStrictEqual('0 sec');
+            expect(formatDuration(from, from, 'en-US')).toStrictEqual('0 sec');
+            expect(formatDuration(from, from, 'en-GB')).toStrictEqual('0 secs');
             expect(formatDuration(from, from, 'en-UK')).toStrictEqual('0 secs');
             const longDuration = formatDurationByOptions({ style: 'long' }, from, from);
             expect(longDuration).toStrictEqual('0 seconds');

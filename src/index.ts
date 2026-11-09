@@ -250,11 +250,14 @@ function getDuration(from: Date, to: Date): Duration {
     const dayInMs = 24 * hourInMs;
     const diffMs = to.getTime() - from.getTime();
 
+    const sign = Math.sign(diffMs);
+    const absDiffMs = Math.abs(diffMs);
+
     return {
-        days: Math.floor(diffMs / dayInMs),
-        hours: Math.floor((diffMs % dayInMs) / hourInMs),
-        minutes: Math.floor((diffMs % hourInMs) / minuteInMs),
-        seconds: Math.floor((diffMs % minuteInMs) / secondInMs),
+        days: sign * Math.floor(absDiffMs / dayInMs),
+        hours: sign * Math.floor((absDiffMs % dayInMs) / hourInMs),
+        minutes: sign * Math.floor((absDiffMs % hourInMs) / minuteInMs),
+        seconds: sign * Math.floor((absDiffMs % minuteInMs) / secondInMs),
     };
 }
 

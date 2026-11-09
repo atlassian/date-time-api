@@ -232,6 +232,18 @@ describe('date-time', () => {
             expect(formatDuration(from, new Date(1999, 0, 0), 'en-US')).toStrictEqual('-365 days');
         });
 
+        test('should format negative duration with hours and minutes', () => {
+            const to = new Date(from.getTime() - 90 * 60 * 1000);
+
+            expect(formatDuration(from, to, 'en-US')).toBe('-1 hr, 30 min');
+        });
+
+        test('should format negative duration with days, hours and minutes', () => {
+            const to = new Date(from.getTime() - (25 * 60 + 30) * 60 * 1000);
+
+            expect(formatDuration(from, to, 'en-US')).toBe('-1 day, 1 hr, 30 min');
+        });
+
         const to = new Date(2000, 0, 1, 2, 3, 4, 5);
         dates.forEach((d) => {
             test(`should format ${d.locale} duration`, () => {
@@ -299,8 +311,17 @@ describe('date-time', () => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (Intl as any).DurationFormat = originalDurationFormat;
         });
-
         const from = new Date(2000, 0, 0);
+        test('should format negative duration with hours and minutes', () => {
+            const to = new Date(from.getTime() - 90 * 60 * 1000);
+
+            expect(formatDuration(from, to, 'en-US')).toBe('-1 hr -30 min');
+        });
+        test('should format negative duration with days, hours and minutes', () => {
+            const to = new Date(from.getTime() - (25 * 60 + 30) * 60 * 1000);
+
+            expect(formatDuration(from, to, 'en-US')).toBe('-1 day -1 hr -30 min');
+        });
         test('auto hide zero values', () => {
             expect(formatDuration(from, new Date(2000, 0, 1, 1, 1, 1, 1), 'en-US')).toBe('1 day 1 hr 1 min 1 sec');
             expect(formatDuration(from, new Date(2000, 0, 2, 2, 2, 2, 2), 'en-US')).toBe('2 days 2 hr 2 min 2 sec');
